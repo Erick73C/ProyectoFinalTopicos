@@ -14,7 +14,6 @@ namespace ProyectoFinalTopicos.Datos
         public string Asiento { get; set; }
         public decimal PrecioBase { get; set; }
         public decimal PrecioMaletas { get; set; }
-        public decimal PrecioTotal => PrecioBase + PrecioMaletas;
         public string Telefono { get; set; }
         public int NumeroMaletas { get; set; }
         public string NumeroPasaporte { get; set; }
