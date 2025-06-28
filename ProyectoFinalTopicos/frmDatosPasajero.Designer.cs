@@ -31,6 +31,8 @@
             this.cbxDestino = new System.Windows.Forms.ComboBox();
             this.cbxOrigen = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblAsiento = new System.Windows.Forms.Label();
+            this.lblCostoMaletas = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.txtnoPasaporte = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -46,8 +48,7 @@
             this.txtNombrePasagero = new System.Windows.Forms.TextBox();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
-            this.lblCostoMaletas = new System.Windows.Forms.Label();
-            this.lblAsiento = new System.Windows.Forms.Label();
+            this.lblNombrePasagero = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericNumeroMaletas)).BeginInit();
             this.SuspendLayout();
@@ -72,6 +73,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.lblNombrePasagero);
             this.panel1.Controls.Add(this.lblAsiento);
             this.panel1.Controls.Add(this.lblCostoMaletas);
             this.panel1.Controls.Add(this.label8);
@@ -94,11 +96,32 @@
             this.panel1.Size = new System.Drawing.Size(765, 369);
             this.panel1.TabIndex = 2;
             // 
+            // lblAsiento
+            // 
+            this.lblAsiento.AutoSize = true;
+            this.lblAsiento.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAsiento.Location = new System.Drawing.Point(304, 15);
+            this.lblAsiento.Name = "lblAsiento";
+            this.lblAsiento.Size = new System.Drawing.Size(188, 24);
+            this.lblAsiento.TabIndex = 17;
+            this.lblAsiento.Text = "Numero de asiento";
+            // 
+            // lblCostoMaletas
+            // 
+            this.lblCostoMaletas.AutoSize = true;
+            this.lblCostoMaletas.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCostoMaletas.Location = new System.Drawing.Point(513, 319);
+            this.lblCostoMaletas.Name = "lblCostoMaletas";
+            this.lblCostoMaletas.Size = new System.Drawing.Size(72, 20);
+            this.lblCostoMaletas.TabIndex = 15;
+            this.lblCostoMaletas.Text = "_______";
+            this.lblCostoMaletas.Click += new System.EventHandler(this.lblCostoMaletas_Click);
+            // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(509, 159);
+            this.label8.Location = new System.Drawing.Point(509, 191);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(200, 24);
             this.label8.TabIndex = 14;
@@ -231,26 +254,15 @@
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click_1);
             // 
-            // lblCostoMaletas
+            // lblNombrePasagero
             // 
-            this.lblCostoMaletas.AutoSize = true;
-            this.lblCostoMaletas.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCostoMaletas.Location = new System.Drawing.Point(513, 319);
-            this.lblCostoMaletas.Name = "lblCostoMaletas";
-            this.lblCostoMaletas.Size = new System.Drawing.Size(72, 20);
-            this.lblCostoMaletas.TabIndex = 15;
-            this.lblCostoMaletas.Text = "_______";
-            this.lblCostoMaletas.Click += new System.EventHandler(this.lblCostoMaletas_Click);
-            // 
-            // lblAsiento
-            // 
-            this.lblAsiento.AutoSize = true;
-            this.lblAsiento.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAsiento.Location = new System.Drawing.Point(304, 13);
-            this.lblAsiento.Name = "lblAsiento";
-            this.lblAsiento.Size = new System.Drawing.Size(188, 24);
-            this.lblAsiento.TabIndex = 17;
-            this.lblAsiento.Text = "Numero de asiento";
+            this.lblNombrePasagero.AutoSize = true;
+            this.lblNombrePasagero.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombrePasagero.Location = new System.Drawing.Point(521, 15);
+            this.lblNombrePasagero.Name = "lblNombrePasagero";
+            this.lblNombrePasagero.Size = new System.Drawing.Size(179, 24);
+            this.lblNombrePasagero.TabIndex = 18;
+            this.lblNombrePasagero.Text = "Nombre Pasagero";
             // 
             // frmDatosPasajero
             // 
@@ -292,5 +304,6 @@
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Label lblCostoMaletas;
         private System.Windows.Forms.Label lblAsiento;
+        private System.Windows.Forms.Label lblNombrePasagero;
     }
 }

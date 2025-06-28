@@ -11,13 +11,16 @@ namespace ProyectoFinalTopicos.Datos
         public string NumeroPasajero { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
+        public string NombreCompleto => $"{Nombre} {Apellido}";
+        public string Telefono { get; set; }
         public string Asiento { get; set; }
         public decimal PrecioBase { get; set; }
-        public decimal PrecioMaletas { get; set; }
-        public string Telefono { get; set; }
         public int NumeroMaletas { get; set; }
         public string NumeroPasaporte { get; set; }
+        public decimal PrecioMaletas { get; set; }
         public string Origen { get; set; }
         public string Destino { get; set; }
+        public string Descripcion => $"{NumeroPasajero}. {NombreCompleto} - {Asiento} (${PrecioTotal.ToString("0.00")})";
+        public decimal PrecioTotal => PrecioBase + PrecioMaletas;
     }
 }

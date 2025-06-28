@@ -13,38 +13,66 @@ namespace ProyectoFinalTopicos
 {
     public partial class frmVentaDeVoletos : Form
     {
+
         #region variables y constantes
         // Lista para almacenar los asientos ocupados
         private List<string> asientosOcupados = new List<string>();
         // Lista para almacenar los pasajeros
-        private List<Pasajero> pasajeros = new List<Pasajero>();
+        //private List<Pasajero> pasajeros = new List<Pasajero>();
+        private BindingList<Pasajero> pasajeros = new BindingList<Pasajero>();
         // Variables para manejar la selección de asientos
         private int asientosASeleccionar = 0;
         private int asientosSeleccionados = 0;
         //Poner el precio del asiento y maleta
         private const decimal PRECIO_ASIENTO = 500.00m;
         private const decimal PRECIO_MALETA = 150.00m;
+        // Variables para manejar la reasignación de asientos
+        private bool modoReasignacion = false;
+        private Pasajero pasajeroReasignando;
+        private const int MAX_PASAJEROS = 9; // Límite máximo de pasajeros
+        private Pasajero pasajeroSeleccionado = null;
         #endregion
 
         #region Metodos y eventos principales y auxiliares 
         public frmVentaDeVoletos()
         {
             InitializeComponent();
+            lstPasajeros.DataSource = pasajeros;
+            lstPasajeros.DisplayMember = "Descripcion";
+            lstPasajeros.ValueMember = "Asiento";
+
+            // Configurar eventos
+            lstPasajeros.SelectedIndexChanged += lstPasajeros_SelectedIndexChanged;
+
+            //pasajeros.ListChanged += lstPasajeros_SelectedIndexChanged;
             asientosOcupados = new List<string>();
             grdAsientos.CellClick += grdAsientos_CellClick;
             numAsientos.Value = 1;
+
+
+            // Configurar el estilo por defecto para las celdas de botón
+            grdAsientos.DefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.LightGray,
+                ForeColor = Color.Black,
+                Font = new Font("Arial", 9, FontStyle.Bold),
+                Alignment = DataGridViewContentAlignment.MiddleCenter,
+                SelectionBackColor = Color.Gray,
+                SelectionForeColor = Color.White
+            };
+
         }
 
         private void frmVentaDeVoletos_Load(object sender, EventArgs e)
         {
-            btntiket.Enabled = false;   
+            btntiket.Enabled = false;
 
+            numAsientos.ValueChanged += numAsientos_ValueChanged;
             ConfigurarGridAsientos();
             DibujarMapaAsientos();
             lnlPrecio.Text = "Total: $0.00";
         }
         
-
         /// <summary>
         /// Actualiza el total de la venta sumando los precios de todos los pasajeros y las meletas que llevan.
         /// </summary>
@@ -58,12 +86,152 @@ namespace ProyectoFinalTopicos
             lblCostoMaleta.Text = $"Total por maletas: ${totalMaletas.ToString("0.00")}";
 
             lnlPrecio.Text = $"Total: ${totalGeneral.ToString("0.00")}\n";
-                /*
-                           $"  (Asientos: ${totalAsientos.ToString("0.00")}\n" +
-                           $"  Maletas: ${totalMaletas.ToString("0.00")})";
-                */
-        
+            /*
+                       $"  (Asientos: ${totalAsientos.ToString("0.00")}\n" +
+                       $"  Maletas: ${totalMaletas.ToString("0.00")})";
+            */
+
+            lblContadorPasageros.Text = $"{pasajeros.Count}/{numAsientos.Value}";
+
+            // Actualizar estado del botón
+            btntiket.Enabled = pasajeros.Count == (int)numAsientos.Value;
+
         }
+
+        private void ReasignarAsiento(DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 3 || e.RowIndex < 0 || e.ColumnIndex < 0)
+            {
+                modoReasignacion = false;
+                return;
+            }
+
+            DataGridViewCell celda = grdAsientos[e.ColumnIndex, e.RowIndex];
+            if (celda.Value == null) return;
+
+            string nuevoAsiento = celda.Value.ToString();
+
+            // Validar que el nuevo asiento no esté ocupado
+            if (asientosOcupados.Contains(nuevoAsiento) && nuevoAsiento != pasajeroReasignando.Asiento)
+            {
+                MessageBox.Show($"El asiento {nuevoAsiento} ya está ocupado",
+                              "Asiento ocupado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Liberar el asiento anterior (si es diferente)
+            if (nuevoAsiento != pasajeroReasignando.Asiento)
+            {
+                asientosOcupados.Remove(pasajeroReasignando.Asiento);
+                asientosOcupados.Add(nuevoAsiento);
+            }
+
+            // Actualizar el pasajero
+            pasajeroReasignando.Asiento = nuevoAsiento;
+
+            // Actualizar la visualización
+            DibujarMapaAsientos();
+            ConfigurarListaPasajeros();
+
+            // Salir del modo reasignación
+            modoReasignacion = false;
+            pasajeroReasignando = null;
+            lblInstruccion.Text = "Seleccione pasajeros o asientos";
+            lblInstruccion.ForeColor = SystemColors.ControlText;
+
+            // Restaurar controles
+            numAsientos.Enabled = true;
+        }
+
+        /*
+        private void ActualizarListaPasajeros()
+        {
+            lstPasajeros.DataSource = null;
+            lstPasajeros.DataSource = pasajeros;
+            lstPasajeros.DisplayMember = "Descripcion";
+            lblContadorPasageros.Text = "Pasajeros"+$"{pasajeros.Count}/{MAX_PASAJEROS}";
+        }
+        */
+
+        /// <summary>
+        /// Maneja el evento cuando cambia la selección en la lista de pasajeros.
+        /// Si hay un pasajero seleccionado, habilita los botones para mover o eliminar al pasajero.
+        /// Si no hay selección, deshabilita estos botones.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lstPasajeros_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //this.lstPasajeros.SelectedIndexChanged += new System.EventHandler(this.lstPasajeros_SelectedIndexChanged);
+
+            if (lstPasajeros.SelectedItem is Pasajero pasajero)
+            {
+                pasajeroSeleccionado = pasajero;
+                btnMoverAsiento.Enabled = true;
+                btnEliminarPasajero.Enabled = true;
+            }
+            else
+            {
+                pasajeroSeleccionado = null;
+                btnMoverAsiento.Enabled = false;
+                btnEliminarPasajero.Enabled = false;
+            }
+        }
+
+
+        /// <summary>
+        /// Configura la lista visual de pasajeros en el control lstPasajeros,
+        /// estableciendo los campos a mostrar y el origen de datos con la lista actual de pasajeros.
+        /// Además, actualiza el contador visual de pasajeros en la interfaz.
+        /// </summary>
+        private void ConfigurarListaPasajeros()
+        {
+            lstPasajeros.DisplayMember = "Descripcion";
+            lstPasajeros.ValueMember = "Asiento";
+            lstPasajeros.DataSource = new BindingList<Pasajero>(pasajeros);
+
+            // Actualizar contador
+            ActualizarContadorPasajeros();
+        }
+
+        /// <summary>
+        /// Actualiza el contador visual de pasajeros en la interfaz, mostrando la cantidad actual de pasajeros respecto al máximo permitido.
+        /// Cambia el color del texto a rojo si se alcanza o supera el límite de pasajeros.
+        /// Refresca la lista de pasajeros para asegurar que la información esté actualizada.
+        /// </summary>
+        private void ActualizarContadorPasajeros()
+        {
+            lblContadorPasageros.Text = $"{pasajeros.Count}/{MAX_PASAJEROS} pasajeros";
+            lblContadorPasageros.ForeColor = pasajeros.Count >= MAX_PASAJEROS ? Color.Red : Color.Black;
+            lstPasajeros.Refresh();
+        }
+
+        /// <summary>
+        /// Maneja el evento cuando cambia el valor del control numAsientos.
+        /// Si el nuevo valor es menor que la cantidad de pasajeros ya registrados,
+        /// muestra un mensaje de advertencia y revierte el cambio.
+        /// Si no, actualiza el contador de pasajeros y el estado del botón de ticket.
+        /// </summary>
+        private void numAsientos_ValueChanged(object sender, EventArgs e)
+        {
+            int nuevoValor = (int)numAsientos.Value;
+
+            // Si reducimos el número de asientos y ya hay más pasajeros
+            if (nuevoValor < pasajeros.Count)
+            {
+                MessageBox.Show($"Debe eliminar {pasajeros.Count - nuevoValor} pasajeros primero",
+                              "Ajuste no permitido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                numAsientos.Value = pasajeros.Count; // Revertir el cambio
+                return;
+            }
+
+            // Actualizar el texto del contador
+            lblContadorPasageros.Text = $"{pasajeros.Count}/{numAsientos.Value}";
+
+            // Actualizar estado del botón de ticket
+            btntiket.Enabled = pasajeros.Count == numAsientos.Value;
+        }
+
         #endregion
 
         #region configuración del DataGridView
@@ -75,6 +243,7 @@ namespace ProyectoFinalTopicos
             grdAsientos.Columns.Clear();
             grdAsientos.Rows.Clear();
 
+            // Configuración básica del grid
             grdAsientos.RowHeadersVisible = false;
             grdAsientos.ColumnHeadersVisible = false;
             grdAsientos.AllowUserToAddRows = false;
@@ -85,36 +254,42 @@ namespace ProyectoFinalTopicos
             grdAsientos.CellBorderStyle = DataGridViewCellBorderStyle.Single;
             grdAsientos.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            int anchoTotal = grdAsientos.Width - 2;
-            int altoTotal = grdAsientos.Height - 2;
-
+            // Configurar las columnas
             for (int i = 0; i < 7; i++)
             {
-                DataGridViewColumn columna = new DataGridViewColumn();
+                DataGridViewColumn columna;
 
                 if (i == 3)
                 {
-                    columna.CellTemplate = new DataGridViewTextBoxCell();
-                    columna.Width = (int)(anchoTotal * 0.25);
+                    columna = new DataGridViewTextBoxColumn();
+                    columna.Width = (int)(grdAsientos.Width * 0.25);
                 }
                 else
                 {
-                    columna.CellTemplate = new DataGridViewButtonCell();
-                    columna.Width = (int)((anchoTotal * 0.75) / 6);
+                    columna = new DataGridViewButtonColumn();
+                    columna.Width = (int)((grdAsientos.Width * 0.75) / 6);
+
+                    // Configurar estilo específico para los botones
+                    columna.DefaultCellStyle = new DataGridViewCellStyle
+                    {
+                        BackColor = Color.LightGray,
+                        ForeColor = Color.Black,
+                        Font = new Font("Arial", 9, FontStyle.Bold),
+                        Alignment = DataGridViewContentAlignment.MiddleCenter
+                    };
                 }
 
                 grdAsientos.Columns.Add(columna);
             }
 
+            // Configurar las filas
             grdAsientos.Rows.Add(16);
+            int alturaFila = grdAsientos.Height / 16;
 
-            int alturaFila = altoTotal / 16;
             foreach (DataGridViewRow row in grdAsientos.Rows)
             {
                 row.Height = alturaFila;
             }
-
-            grdAsientos.AutoSize = true;
         }
 
         /// <summary>
@@ -184,6 +359,8 @@ namespace ProyectoFinalTopicos
                     }
                 }
             }
+
+            grdAsientos.Refresh();
         }
 
         /// <summary>
@@ -194,12 +371,21 @@ namespace ProyectoFinalTopicos
         /// </summary>
         private void grdAsientos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            // Manejo de reasignación
+            if (modoReasignacion)
+            {
+                ReasignarAsiento(e);
+                return;
+            }
+
+            // Validación de celdas no válidas
             if (e.ColumnIndex == 3 || e.RowIndex < 0 || e.ColumnIndex < 0)
                 return;
 
-            // Obtenemos la cantidad de asientos del NumericUpDown
+            // Obtener cantidad de asientos a seleccionar
             asientosASeleccionar = (int)numAsientos.Value;
 
+            // Validaciones previas
             if (asientosASeleccionar <= 0)
             {
                 MessageBox.Show("Por favor, ingrese una cantidad válida de asientos a reservar",
@@ -214,6 +400,14 @@ namespace ProyectoFinalTopicos
                 return;
             }
 
+            if (pasajeros.Count >= asientosASeleccionar)
+            {
+                MessageBox.Show($"Ya ha seleccionado los {asientosASeleccionar} asientos requeridos",
+                              "Límite alcanzado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // Obtener celda seleccionada
             DataGridViewCell celda = grdAsientos[e.ColumnIndex, e.RowIndex];
 
             if (celda.Value == null)
@@ -221,6 +415,7 @@ namespace ProyectoFinalTopicos
 
             string numeroAsiento = celda.Value.ToString();
 
+            // Verificar si el asiento está ocupado
             if (celda.Style.BackColor == Color.FromArgb(60, 179, 113) ||
                 asientosOcupados.Contains(numeroAsiento))
             {
@@ -229,18 +424,23 @@ namespace ProyectoFinalTopicos
                 return;
             }
 
-            using (frmDatosPasajero formDatos = new frmDatosPasajero(numeroAsiento, PRECIO_MALETA))
+            // Mostrar formulario de datos del pasajero
+            using (frmDatosPasajero formDatos = new frmDatosPasajero(numeroAsiento, PRECIO_MALETA, pasajeros.Count + 1))
             {
-                formDatos.NumeroAsiento = numeroAsiento; // Pasamos el número de asiento
+                formDatos.NumeroAsiento = numeroAsiento;
 
                 if (formDatos.ShowDialog() == DialogResult.OK)
                 {
+                    // Actualizar apariencia de la celda
                     celda.Style.BackColor = Color.FromArgb(60, 179, 113);
                     celda.Style.ForeColor = Color.White;
-                    celda.Value = numeroAsiento + "\n" + formDatos.NombrePasajero + " " + formDatos.ApellidoPasajero;
+                    celda.Value = $"{numeroAsiento}\n{formDatos.NombrePasajero} {formDatos.ApellidoPasajero}";
 
+                    // Agregar a lista de asientos ocupados
                     asientosOcupados.Add(numeroAsiento);
-                    pasajeros.Add(new Pasajero
+
+                    // Crear nuevo pasajero
+                    var nuevoPasajero = new Pasajero
                     {
                         Nombre = formDatos.NombrePasajero,
                         Apellido = formDatos.ApellidoPasajero,
@@ -252,22 +452,31 @@ namespace ProyectoFinalTopicos
                         NumeroPasaporte = formDatos.NumeroPasaporte,
                         Origen = formDatos.Origen,
                         Destino = formDatos.Destino
-                    });
+                    };
 
+                    // Actualizar contadores y listas
                     asientosSeleccionados++;
+                    pasajeros.Add(nuevoPasajero);
+
+                    // Forzar actualización de los controles
+                    lstPasajeros.DataSource = null;
+                    lstPasajeros.DataSource = pasajeros;
+                    lstPasajeros.DisplayMember = "Descripcion";
+                    lstPasajeros.ValueMember = "Asiento";
+                    lstPasajeros.Refresh();
+
+                    DibujarMapaAsientos();
                     ActualizarTotal();
 
-                    if (asientosSeleccionados == asientosASeleccionar)
-                    {
-                        btntiket.Enabled = true;
-                    }
+                    // Habilitar botón de ticket si se completaron todos los asientos
+                    btntiket.Enabled = (asientosSeleccionados == asientosASeleccionar);
                 }
             }
-        
         }
         #endregion
 
         #region Eventos de botones
+
         private void btnEstablecerAsientos_Click(object sender, EventArgs e)
         {
             int cantidad = (int)numAsientos.Value;
@@ -305,7 +514,61 @@ namespace ProyectoFinalTopicos
             frmTicket tk = new frmTicket();
             tk.ShowDialog();
         }
+
+        private void btnMoverAsiento_Click(object sender, EventArgs e)
+        {
+            if (pasajeroSeleccionado == null) return;
+
+            // Mostrar mensaje de instrucción
+            lblInstruccion.Text = $"Seleccione nuevo asiento para {pasajeroSeleccionado.NombreCompleto}";
+            lblInstruccion.ForeColor = Color.Blue;
+
+            // Activar modo reasignación
+            modoReasignacion = true;
+            pasajeroReasignando = pasajeroSeleccionado;
+
+            // Deshabilitar botones mientras se reasigna
+            btnMoverAsiento.Enabled = false;
+            btnEliminarPasajero.Enabled = false;
+            numAsientos.Enabled = false;
+        }
+
+        private void btnEliminarPasajero_Click(object sender, EventArgs e)
+        {
+            if (pasajeroSeleccionado == null) return;
+
+            var confirmacion = MessageBox.Show(
+                $"¿Eliminar a {pasajeroSeleccionado.NombreCompleto} del asiento {pasajeroSeleccionado.Asiento}?",
+                "Confirmar eliminación",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (confirmacion == DialogResult.Yes)
+            {
+                // Liberar el asiento
+                asientosOcupados.Remove(pasajeroSeleccionado.Asiento);
+
+                // Eliminar al pasajero
+                pasajeros.Remove(pasajeroSeleccionado);
+
+                // Actualizar la lista y el mapa
+                ConfigurarListaPasajeros();
+                DibujarMapaAsientos();
+                ActualizarTotal();
+
+                // Reducir contador de asientos seleccionados
+                asientosSeleccionados--;
+
+                // Actualizar estado del botón de ticket
+                btntiket.Enabled = pasajeros.Count == asientosASeleccionar;
+
+                if (numAsientos.Value > pasajeros.Count)
+                {
+                    numAsientos.Value = pasajeros.Count;
+                }
+            }
+        }
         #endregion
-        
+
     }
 }
