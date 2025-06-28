@@ -28,65 +28,269 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.cbxDestino = new System.Windows.Forms.ComboBox();
+            this.cbxOrigen = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtnoPasaporte = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.numericNumeroMaletas = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtNumeroTelefono = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtApellidoPasageri = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.txtNombrePasagero = new System.Windows.Forms.TextBox();
+            this.btnAceptar = new System.Windows.Forms.Button();
+            this.btnCancelar = new System.Windows.Forms.Button();
+            this.lblCostoMaletas = new System.Windows.Forms.Label();
+            this.lblAsiento = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericNumeroMaletas)).BeginInit();
             this.SuspendLayout();
             // 
-            // comboBox1
+            // cbxDestino
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(438, 36);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(239, 21);
-            this.comboBox1.TabIndex = 0;
+            this.cbxDestino.FormattingEnabled = true;
+            this.cbxDestino.Location = new System.Drawing.Point(470, 98);
+            this.cbxDestino.Name = "cbxDestino";
+            this.cbxDestino.Size = new System.Drawing.Size(239, 21);
+            this.cbxDestino.TabIndex = 0;
             // 
-            // comboBox2
+            // cbxOrigen
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(97, 36);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(239, 21);
-            this.comboBox2.TabIndex = 1;
+            this.cbxOrigen.FormattingEnabled = true;
+            this.cbxOrigen.Items.AddRange(new object[] {
+            "Leon (Mexico)"});
+            this.cbxOrigen.Location = new System.Drawing.Point(99, 98);
+            this.cbxOrigen.Name = "cbxOrigen";
+            this.cbxOrigen.Size = new System.Drawing.Size(239, 21);
+            this.cbxOrigen.TabIndex = 1;
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.lblAsiento);
+            this.panel1.Controls.Add(this.lblCostoMaletas);
+            this.panel1.Controls.Add(this.label8);
+            this.panel1.Controls.Add(this.txtnoPasaporte);
+            this.panel1.Controls.Add(this.label7);
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.numericNumeroMaletas);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.txtNumeroTelefono);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.txtApellidoPasageri);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.txtNombrePasagero);
-            this.panel1.Controls.Add(this.comboBox2);
-            this.panel1.Controls.Add(this.comboBox1);
+            this.panel1.Controls.Add(this.cbxOrigen);
+            this.panel1.Controls.Add(this.cbxDestino);
             this.panel1.Location = new System.Drawing.Point(23, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(765, 402);
+            this.panel1.Size = new System.Drawing.Size(765, 369);
             this.panel1.TabIndex = 2;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(509, 159);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(200, 24);
+            this.label8.TabIndex = 14;
+            this.label8.Text = "Numero de Pasaporte ";
+            // 
+            // txtnoPasaporte
+            // 
+            this.txtnoPasaporte.Location = new System.Drawing.Point(517, 218);
+            this.txtnoPasaporte.Name = "txtnoPasaporte";
+            this.txtnoPasaporte.Size = new System.Drawing.Size(192, 20);
+            this.txtnoPasaporte.TabIndex = 13;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(556, 67);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(80, 24);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "Destino";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(189, 67);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(74, 24);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "Origen";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(3, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(295, 39);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "Datos del usuario ";
+            // 
+            // numericNumeroMaletas
+            // 
+            this.numericNumeroMaletas.Location = new System.Drawing.Point(218, 322);
+            this.numericNumeroMaletas.Name = "numericNumeroMaletas";
+            this.numericNumeroMaletas.Size = new System.Drawing.Size(120, 20);
+            this.numericNumeroMaletas.TabIndex = 9;
+            this.numericNumeroMaletas.ValueChanged += new System.EventHandler(this.numericNumeroMaletas_ValueChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(23, 316);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(177, 27);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Numero de maletas";
+            this.label4.UseCompatibleTextRendering = true;
+            // 
+            // txtNumeroTelefono
+            // 
+            this.txtNumeroTelefono.Location = new System.Drawing.Point(218, 265);
+            this.txtNumeroTelefono.Name = "txtNumeroTelefono";
+            this.txtNumeroTelefono.Size = new System.Drawing.Size(192, 20);
+            this.txtNumeroTelefono.TabIndex = 7;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(22, 265);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(178, 24);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Numero de telefono";
+            // 
+            // txtApellidoPasageri
+            // 
+            this.txtApellidoPasageri.Location = new System.Drawing.Point(218, 218);
+            this.txtApellidoPasageri.Name = "txtApellidoPasageri";
+            this.txtApellidoPasageri.Size = new System.Drawing.Size(192, 20);
+            this.txtApellidoPasageri.TabIndex = 5;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(112, 218);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(88, 24);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Apellidos";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(111, 164);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(89, 24);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Nombre: ";
             // 
             // txtNombrePasagero
             // 
-            this.txtNombrePasagero.Location = new System.Drawing.Point(162, 144);
+            this.txtNombrePasagero.Location = new System.Drawing.Point(218, 164);
             this.txtNombrePasagero.Name = "txtNombrePasagero";
             this.txtNombrePasagero.Size = new System.Drawing.Size(192, 20);
             this.txtNombrePasagero.TabIndex = 2;
+            // 
+            // btnAceptar
+            // 
+            this.btnAceptar.Location = new System.Drawing.Point(405, 405);
+            this.btnAceptar.Name = "btnAceptar";
+            this.btnAceptar.Size = new System.Drawing.Size(176, 42);
+            this.btnAceptar.TabIndex = 3;
+            this.btnAceptar.Text = "Confirmar";
+            this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.Location = new System.Drawing.Point(612, 405);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(176, 42);
+            this.btnCancelar.TabIndex = 4;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click_1);
+            // 
+            // lblCostoMaletas
+            // 
+            this.lblCostoMaletas.AutoSize = true;
+            this.lblCostoMaletas.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCostoMaletas.Location = new System.Drawing.Point(513, 319);
+            this.lblCostoMaletas.Name = "lblCostoMaletas";
+            this.lblCostoMaletas.Size = new System.Drawing.Size(72, 20);
+            this.lblCostoMaletas.TabIndex = 15;
+            this.lblCostoMaletas.Text = "_______";
+            this.lblCostoMaletas.Click += new System.EventHandler(this.lblCostoMaletas_Click);
+            // 
+            // lblAsiento
+            // 
+            this.lblAsiento.AutoSize = true;
+            this.lblAsiento.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAsiento.Location = new System.Drawing.Point(304, 13);
+            this.lblAsiento.Name = "lblAsiento";
+            this.lblAsiento.Size = new System.Drawing.Size(188, 24);
+            this.lblAsiento.TabIndex = 17;
+            this.lblAsiento.Text = "Numero de asiento";
             // 
             // frmDatosPasajero
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 475);
+            this.Controls.Add(this.btnCancelar);
+            this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.panel1);
             this.Name = "frmDatosPasajero";
             this.Text = "frmDatosPasajero";
+            this.Load += new System.EventHandler(this.frmDatosPasajero_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericNumeroMaletas)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox cbxDestino;
+        private System.Windows.Forms.ComboBox cbxOrigen;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox txtNombrePasagero;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtApellidoPasageri;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtNumeroTelefono;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.NumericUpDown numericNumeroMaletas;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox txtnoPasaporte;
+        private System.Windows.Forms.Button btnAceptar;
+        private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Label lblCostoMaletas;
+        private System.Windows.Forms.Label lblAsiento;
     }
 }
