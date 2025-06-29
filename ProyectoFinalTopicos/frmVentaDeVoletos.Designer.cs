@@ -133,6 +133,7 @@
             this.btnEstablecerAsientos.TabIndex = 7;
             this.btnEstablecerAsientos.Text = "Confirmar Asientos";
             this.btnEstablecerAsientos.UseVisualStyleBackColor = true;
+            this.btnEstablecerAsientos.Click += new System.EventHandler(this.btnEstablecerAsientos_Click_1);
             // 
             // panel2
             // 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProyectoFinalTopicos.Datos;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -25,6 +26,8 @@ namespace ProyectoFinalTopicos
         public decimal CostoPorMaleta { get; private set; }
         public decimal TotalMaletas { get; private set; }
         #endregion
+
+        private clsDaoDatos dao = new clsDaoDatos();
 
         //private string asiento;
 

@@ -33,7 +33,10 @@ namespace ProyectoFinalTopicos
         private Pasajero pasajeroSeleccionado = null;
         #endregion
 
+        private clsDaoDatos dao = new clsDaoDatos();
+
         #region Metodos y eventos principales y auxiliares 
+
         public frmVentaDeVoletos()
         {
             InitializeComponent();
@@ -43,12 +46,11 @@ namespace ProyectoFinalTopicos
 
             // Configurar eventos
             lstPasajeros.SelectedIndexChanged += lstPasajeros_SelectedIndexChanged;
-
-            //pasajeros.ListChanged += lstPasajeros_SelectedIndexChanged;
-            asientosOcupados = new List<string>();
             grdAsientos.CellClick += grdAsientos_CellClick;
             numAsientos.Value = 1;
 
+            // Recuperar los asientos ocupados desde la base de datos
+            asientosOcupados = dao.ObtenerAsientosOcupados("V123");
 
             // Configurar el estilo por defecto para las celdas de botón
             grdAsientos.DefaultCellStyle = new DataGridViewCellStyle
@@ -61,18 +63,17 @@ namespace ProyectoFinalTopicos
                 SelectionForeColor = Color.White
             };
 
+            ConfigurarGridAsientos();
+            DibujarMapaAsientos();
+            lnlPrecio.Text = "Total: $0.00";
         }
 
         private void frmVentaDeVoletos_Load(object sender, EventArgs e)
         {
             btntiket.Enabled = false;
-
             numAsientos.ValueChanged += numAsientos_ValueChanged;
-            ConfigurarGridAsientos();
-            DibujarMapaAsientos();
-            lnlPrecio.Text = "Total: $0.00";
         }
-        
+
         /// <summary>
         /// Actualiza el total de la venta sumando los precios de todos los pasajeros y las meletas que llevan.
         /// </summary>
@@ -325,9 +326,9 @@ namespace ProyectoFinalTopicos
                     int indexAsiento = fila * 3 + col;
                     if (indexAsiento < asientosA.Length)
                     {
-                        grdAsientos[col, fila].Value = asientosA[indexAsiento];
-                        grdAsientos[col, fila].Style.BackColor = asientosOcupados.Contains(asientosA[indexAsiento]) ?
-                            Color.FromArgb(60, 179, 113) : Color.LightGray;
+                        string asiento = asientosA[indexAsiento];
+                        grdAsientos[col, fila].Value = asientosOcupados.Contains(asiento) ? "X" : asiento;
+                        grdAsientos[col, fila].Style.BackColor = asientosOcupados.Contains(asiento) ? Color.Red : Color.LightGray;
                         grdAsientos[col, fila].Style.ForeColor = Color.Black;
                         grdAsientos[col, fila].Style.Font = new Font("Arial", 9, FontStyle.Bold);
                     }
@@ -351,9 +352,9 @@ namespace ProyectoFinalTopicos
                     int indexAsiento = fila * 3 + (col - 4);
                     if (indexAsiento < asientosB.Length)
                     {
-                        grdAsientos[col, fila].Value = asientosB[indexAsiento];
-                        grdAsientos[col, fila].Style.BackColor = asientosOcupados.Contains(asientosB[indexAsiento]) ?
-                            Color.FromArgb(60, 179, 113) : Color.LightGray;
+                        string asiento = asientosB[indexAsiento];
+                        grdAsientos[col, fila].Value = asientosOcupados.Contains(asiento) ? "X" : asiento;
+                        grdAsientos[col, fila].Style.BackColor = asientosOcupados.Contains(asiento) ? Color.Red : Color.LightGray;
                         grdAsientos[col, fila].Style.ForeColor = Color.Black;
                         grdAsientos[col, fila].Style.Font = new Font("Arial", 9, FontStyle.Bold);
                     }
@@ -477,23 +478,7 @@ namespace ProyectoFinalTopicos
 
         #region Eventos de botones
 
-        private void btnEstablecerAsientos_Click(object sender, EventArgs e)
-        {
-            int cantidad = (int)numAsientos.Value;
 
-            if (cantidad > 0)
-            {
-                asientosASeleccionar = cantidad;
-                asientosSeleccionados = 0;
-                btntiket.Enabled = false;
-                lblInstruccion.Text = $"Seleccione {cantidad} asientos";
-            }
-            else
-            {
-                MessageBox.Show("Ingrese un número válido de asientos",
-                              "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
@@ -570,5 +555,84 @@ namespace ProyectoFinalTopicos
         }
         #endregion
 
+        private void btnEstablecerAsientos_Click_1(object sender, EventArgs e)
+        {
+            int cantidad = (int)numAsientos.Value;
+
+            if (cantidad > 0)
+            {
+                if (pasajeros.Count == 0)
+                {
+                    MessageBox.Show("Debes seleccionar primero los pasajeros antes de guardar los datos.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                bool errores = false;
+
+                foreach (var pasajero in pasajeros)
+                {
+                    try
+                    {
+                        Vuelo vuelo = new Vuelo
+                        {
+                            NumeroVuelo = "V123",
+                            AeropuertoOrigen = pasajero.Origen,
+                            AeropuertoDestino = pasajero.Destino,
+                            FechaHoraSalida = DateTime.Now.AddHours(2),
+                            FechaHoraLlegada = DateTime.Now.AddHours(6)
+                        };
+
+                        dao.InsertarVueloSiNoExiste(vuelo);
+                        dao.InsertarPasajero(pasajero, out int idPasajero);
+
+                        string identificadorUnico = Guid.NewGuid().ToString();
+
+                        Boleto boleto = new Boleto
+                        {
+                            NumeroBoleto = identificadorUnico,
+                            NumeroAsiento = pasajero.Asiento,
+                            TieneMaleta = pasajero.NumeroMaletas > 0,
+                            CheckInRealizado = false,
+                            HaAbordado = false,
+                            Pasajero = pasajero,
+                            Vuelo = vuelo
+                        };
+
+                        dao.InsertarBoleto(boleto, idPasajero);
+                    }
+                    catch (Exception ex)
+                    {
+                        errores = true;
+                        MessageBox.Show($"Error al guardar pasajero {pasajero.NombreCompleto}:\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
+                if (!errores)
+                {
+                    MessageBox.Show("Todos los datos fueron guardados exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    pasajeros.Clear();
+                    asientosSeleccionados = 0;
+                    asientosASeleccionar = 0;
+                    numAsientos.Value = 1;
+                    btntiket.Enabled = false;
+                    lnlPrecio.Text = "Total: $0.00";
+                    lblCostoMaleta.Text = "Total por maletas: $0.00";
+                    lblInstruccion.Text = "Ingrese cantidad de asientos";
+
+                    asientosOcupados = dao.ObtenerAsientosOcupados("V123");
+                    DibujarMapaAsientos();
+                    lstPasajeros.DataSource = null;
+                    lstPasajeros.DataSource = pasajeros;
+                    lstPasajeros.DisplayMember = "Descripcion";
+                    lstPasajeros.ValueMember = "Asiento";
+                    lstPasajeros.Refresh();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Ingrese un número válido de asientos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

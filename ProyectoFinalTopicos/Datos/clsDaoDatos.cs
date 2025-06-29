@@ -17,22 +17,229 @@ namespace ProyectoFinalTopicos.Datos
            //Poner los datos de la conexión a la base de datos
            //IMPORTANTE: Cambiar la cadena de conexión según tu configuración de base de datos
            //La base de datos se llama "DBAeropuerto" 
-           "server = localhost;  database = DBAeropuerto; uid = root; pwd = ;";
+           "server = localhost;  database = dbaeropuerto; uid = root; pwd = ;";
 
-        public void GuardarBoleto(Boleto boleto)
+        public bool InsertarBoleto(Boleto boleto, int idPasajero)
         {
             MySqlConnection conn = null;
             MySqlCommand cmd = null;
+            try
+            {
+                conn = new MySqlConnection(conexion);
+                conn.Open();
 
+                string query = "INSERT INTO Boletos (NumeroBoleto, NumeroPasajero, NumeroVuelo, NumeroAsiento, TieneMaleta, CheckInRealizado, HaAbordado) " +
+                               "VALUES (@NumeroBoleto, @NumeroPasajero, @NumeroVuelo, @NumeroAsiento, @TieneMaleta, @CheckInRealizado, @HaAbordado)";
+                cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@NumeroBoleto", boleto.NumeroBoleto);
+                cmd.Parameters.AddWithValue("@NumeroPasajero", idPasajero);
+                cmd.Parameters.AddWithValue("@NumeroVuelo", boleto.Vuelo.NumeroVuelo);
+                cmd.Parameters.AddWithValue("@NumeroAsiento", boleto.NumeroAsiento);
+                cmd.Parameters.AddWithValue("@TieneMaleta", boleto.TieneMaleta);
+                cmd.Parameters.AddWithValue("@CheckInRealizado", boleto.CheckInRealizado);
+                cmd.Parameters.AddWithValue("@HaAbordado", boleto.HaAbordado);
+
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al insertar el boleto.", ex);
+            }
+            finally
+            {
+                cmd?.Dispose();
+                conn?.Close();
+                conn?.Dispose();
+            }
         }
 
         public List<Boleto> ObtenerBoletosPorVuelo(string numeroVuelo)
         {
+            List<Boleto> boletos = new List<Boleto>();
             MySqlConnection conn = null;
             MySqlCommand cmd = null;
+            MySqlDataReader reader = null;
 
-            // Implementar lógica para recuperar boletos
-            return new List<Boleto>();
+            try
+            {
+                conn = new MySqlConnection(conexion);
+                conn.Open();
+                string query = "SELECT b.NumeroBoleto, b.NumeroAsiento, b.TieneMaleta, b.CheckInRealizado, b.HaAbordado, " +
+                               "p.Nombre, p.Apellido, p.Asiento, p.NumeroPasaporte, p.Origen, p.Destino, p.PrecioBase, p.PrecioMaletas " +
+                               "FROM Boletos b " +
+                               "JOIN Pasajeros p ON b.NumeroPasajero = p.NumeroPasajero " +
+                               "WHERE b.NumeroVuelo = @NumeroVuelo";
+
+                cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@NumeroVuelo", numeroVuelo);
+
+                reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    var pasajero = new Pasajero
+                    {
+                        Nombre = reader["Nombre"].ToString(),
+                        Apellido = reader["Apellido"].ToString(),
+                        Asiento = reader["Asiento"].ToString(),
+                        NumeroPasaporte = reader["NumeroPasaporte"].ToString(),
+                        Origen = reader["Origen"].ToString(),
+                        Destino = reader["Destino"].ToString(),
+                        PrecioBase = Convert.ToDecimal(reader["PrecioBase"]),
+                        PrecioMaletas = Convert.ToDecimal(reader["PrecioMaletas"])
+                    };
+
+                    var boleto = new Boleto
+                    {
+                        NumeroBoleto = reader["NumeroBoleto"].ToString(),
+                        NumeroAsiento = reader["NumeroAsiento"].ToString(),
+                        TieneMaleta = Convert.ToBoolean(reader["TieneMaleta"]),
+                        CheckInRealizado = Convert.ToBoolean(reader["CheckInRealizado"]),
+                        HaAbordado = Convert.ToBoolean(reader["HaAbordado"]),
+                        Pasajero = pasajero
+                    };
+
+                    boletos.Add(boleto);
+                }
+
+                return boletos;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al obtener los boletos del vuelo.", ex);
+            }
+            finally
+            {
+                reader?.Close();
+                cmd?.Dispose();
+                conn?.Close();
+                conn?.Dispose();
+            }
         }
+
+        public List<string> ObtenerAsientosOcupados(string numeroVuelo)
+        {
+            List<string> asientos = new List<string>();
+            MySqlConnection conn = null;
+            MySqlCommand cmd = null;
+            MySqlDataReader reader = null;
+
+            try
+            {
+                conn = new MySqlConnection(conexion);
+                conn.Open();
+                string query = "SELECT NumeroAsiento FROM Boletos WHERE NumeroVuelo = @NumeroVuelo";
+
+                cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@NumeroVuelo", numeroVuelo);
+
+                reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    asientos.Add(reader["NumeroAsiento"].ToString());
+                }
+
+                return asientos;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al obtener los asientos ocupados.", ex);
+            }
+            finally
+            {
+                reader?.Close();
+                cmd?.Dispose();
+                conn?.Close();
+                conn?.Dispose();
+            }
+        }
+
+        public bool InsertarPasajero(Pasajero pasajero, out int idInsertado)
+        {
+            MySqlConnection conn = null;
+            MySqlCommand cmd = null;
+            idInsertado = -1;
+            try
+            {
+                conn = new MySqlConnection(conexion);
+                conn.Open();
+                string query = "INSERT INTO Pasajeros (Nombre, Apellido, Telefono, Asiento, PrecioBase, NumeroMaletas, NumeroPasaporte, PrecioMaletas, Origen, Destino) " +
+                               "VALUES (@Nombre, @Apellido, @Telefono, @Asiento, @PrecioBase, @NumeroMaletas, @NumeroPasaporte, @PrecioMaletas, @Origen, @Destino); " +
+                               "SELECT LAST_INSERT_ID();";
+
+                cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@Nombre", pasajero.Nombre);
+                cmd.Parameters.AddWithValue("@Apellido", pasajero.Apellido);
+                cmd.Parameters.AddWithValue("@Telefono", pasajero.Telefono);
+                cmd.Parameters.AddWithValue("@Asiento", pasajero.Asiento);
+                cmd.Parameters.AddWithValue("@PrecioBase", pasajero.PrecioBase);
+                cmd.Parameters.AddWithValue("@NumeroMaletas", pasajero.NumeroMaletas);
+                cmd.Parameters.AddWithValue("@NumeroPasaporte", pasajero.NumeroPasaporte);
+                cmd.Parameters.AddWithValue("@PrecioMaletas", pasajero.PrecioMaletas);
+                cmd.Parameters.AddWithValue("@Origen", pasajero.Origen);
+                cmd.Parameters.AddWithValue("@Destino", pasajero.Destino);
+
+                idInsertado = Convert.ToInt32(cmd.ExecuteScalar());
+                return true;
+            }
+            catch (MySqlException ex)
+            {
+                throw new ApplicationException("Error al insertar el pasajero en la base de datos.", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Ocurrió un error inesperado al insertar el pasajero.", ex);
+            }
+            finally
+            {
+                cmd?.Dispose();
+                conn?.Close();
+                conn?.Dispose();
+            }
+        }
+
+        public bool InsertarVueloSiNoExiste(Vuelo vuelo)
+        {
+            MySqlConnection conn = null;
+            MySqlCommand cmd = null;
+            try
+            {
+                conn = new MySqlConnection(conexion);
+                conn.Open();
+
+                string verificar = "SELECT COUNT(*) FROM Vuelos WHERE NumeroVuelo = @NumeroVuelo";
+                cmd = new MySqlCommand(verificar, conn);
+                cmd.Parameters.AddWithValue("@NumeroVuelo", vuelo.NumeroVuelo);
+                int existe = Convert.ToInt32(cmd.ExecuteScalar());
+
+                if (existe > 0)
+                    return true;
+
+                cmd.Dispose();
+
+                string insertar = "INSERT INTO Vuelos (NumeroVuelo, AeropuertoOrigen, AeropuertoDestino, FechaHoraSalida, FechaHoraLlegada) " +
+                                  "VALUES (@NumeroVuelo, @AeropuertoOrigen, @AeropuertoDestino, @FechaHoraSalida, @FechaHoraLlegada)";
+                cmd = new MySqlCommand(insertar, conn);
+                cmd.Parameters.AddWithValue("@NumeroVuelo", vuelo.NumeroVuelo);
+                cmd.Parameters.AddWithValue("@AeropuertoOrigen", vuelo.AeropuertoOrigen);
+                cmd.Parameters.AddWithValue("@AeropuertoDestino", vuelo.AeropuertoDestino);
+                cmd.Parameters.AddWithValue("@FechaHoraSalida", vuelo.FechaHoraSalida);
+                cmd.Parameters.AddWithValue("@FechaHoraLlegada", vuelo.FechaHoraLlegada);
+
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al insertar/verificar el vuelo.", ex);
+            }
+            finally
+            {
+                cmd?.Dispose();
+                conn?.Close();
+                conn?.Dispose();
+            }
+        }
+
     }
 }

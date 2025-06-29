@@ -1,1 +1,36 @@
-﻿
+﻿CREATE DATABASE IF NOT EXISTS DBAeropuerto;
+USE DBAeropuerto;
+
+CREATE TABLE Pasajeros (
+    NumeroPasajero INT AUTO_INCREMENT PRIMARY KEY,
+    Nombre VARCHAR(100) NOT NULL,
+    Apellido VARCHAR(100) NOT NULL,
+    Telefono VARCHAR(20),
+    Asiento VARCHAR(10),
+    PrecioBase DECIMAL(10,2),
+    NumeroMaletas INT,
+    NumeroPasaporte VARCHAR(50),
+    PrecioMaletas DECIMAL(10,2),
+    Origen VARCHAR(100),
+    Destino VARCHAR(100)
+);
+
+CREATE TABLE Vuelos (
+    NumeroVuelo VARCHAR(20) PRIMARY KEY,
+    AeropuertoOrigen VARCHAR(100),
+    AeropuertoDestino VARCHAR(100),
+    FechaHoraSalida DATETIME,
+    FechaHoraLlegada DATETIME
+);
+
+CREATE TABLE Boletos (
+    NumeroBoleto VARCHAR(100) PRIMARY KEY, -- Actúa como código de barras/QR
+    NumeroPasajero INT,
+    NumeroVuelo VARCHAR(20),
+    NumeroAsiento VARCHAR(10),
+    TieneMaleta BOOLEAN,
+    CheckInRealizado BOOLEAN DEFAULT FALSE,
+    HaAbordado BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (NumeroPasajero) REFERENCES Pasajeros(NumeroPasajero),
+    FOREIGN KEY (NumeroVuelo) REFERENCES Vuelos(NumeroVuelo)
+);
