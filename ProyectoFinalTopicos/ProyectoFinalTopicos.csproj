@@ -108,6 +108,12 @@
     <Compile Include="frmDatosPasajero.Designer.cs">
       <DependentUpon>frmDatosPasajero.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmEscoger.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEscoger.Designer.cs">
+      <DependentUpon>frmEscoger.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmTicket.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,6 +131,9 @@
     <EmbeddedResource Include="frmDatosPasajero.resx">
       <DependentUpon>frmDatosPasajero.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmEscoger.resx">
+      <DependentUpon>frmEscoger.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmTicket.resx">
       <DependentUpon>frmTicket.cs</DependentUpon>
     </EmbeddedResource>
@@ -139,6 +148,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -156,6 +166,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Datos\txtCodigoBaseDeDatos.txt" />
+    <None Include="Resources\SanFrancisco.jpg" />
+    <None Include="Resources\NuevaYork.jpg" />
+    <None Include="Resources\Washington.jpg" />
+    <None Include="Resources\bogota.jpg" />
+    <None Include="Resources\Puerto.jpg" />
+    <None Include="Resources\LosCabos.jpg" />
+    <None Include="Resources\hermosillo.jpg" />
+    <None Include="Resources\Cancún.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
