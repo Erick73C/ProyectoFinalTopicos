@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -26,8 +27,6 @@ namespace ProyectoFinalTopicos
         public decimal CostoPorMaleta { get; private set; }
         public decimal TotalMaletas { get; private set; }
         #endregion
-
-        private clsDaoDatos dao = new clsDaoDatos();
 
         //private string asiento;
 
@@ -56,14 +55,24 @@ namespace ProyectoFinalTopicos
             numericNumeroMaletas.Maximum = 5; // Límite de 5 maletas
             numericNumeroMaletas.ValueChanged += numericNumeroMaletas_ValueChanged;
         }
-
+        /// <summary>
+        /// Al carga el formulario los txtbox de origen y destino se desabilitan 
+        /// y cargan los datos del formulario de frEscoger 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void frmDatosPasajero_Load(object sender, EventArgs e)
         {
-          
+            ///Nuevo
+            cbxDestino.Enabled = false; 
+            cbxOrigen.Enabled = false;
         }
         #endregion
 
         #region Metodos auxiliares
+        /// <summary>
+        /// Carga en las combobox los destinos disponibles
+        /// </summary>
         private void CargarDestinos()
         {
             cbxOrigen.Items.AddRange(destinosDisponibles.ToArray());
@@ -129,11 +138,22 @@ namespace ProyectoFinalTopicos
         #endregion
 
         #region Logica de eventos de elementos de formulario
+        /// <summary>
+        /// Cierra el formulario 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCancelar_Click_1(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
             Close();
         }
+
+        /// <summary>
+        /// Guarda los datos del pasagero
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             if (!ValidarDatos())
@@ -150,18 +170,160 @@ namespace ProyectoFinalTopicos
             DialogResult = DialogResult.OK;
             Close();
         }
+
+        /// <summary>
+        /// Va sumando el numero de maletas del pasagero
+        /// Y lo va poniendo en el lblCostoMaletas
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void numericNumeroMaletas_ValueChanged(object sender, EventArgs e)
         {
             int maletas = (int)numericNumeroMaletas.Value;
             TotalMaletas = maletas * CostoPorMaleta;
             lblCostoMaletas.Text = $"Costo Total por maletas: ${TotalMaletas.ToString("0.00")}";
         }
+
         private void lblCostoMaletas_Click(object sender, EventArgs e)
         {
 
         }
 
         #endregion
+
+        //NUEVO PARTE DE VALIDACION DE CAMPOS AÑADIR TAMBIEN LOS ERRORPRIVIDER
+        #region Validacion de datos
+
+        /// <summary>
+        /// Valida que el campo no este vacio
+        /// y que el numero de caracteres no pase de 30
+        /// </summary>
+        private void validarNombre()
+        {
+            if (string.IsNullOrEmpty(txtNombrePasagero.Text) == true)
+            {
+                txtNombrePasagero.Focus();
+                txtNombrePasagero.BackColor = Color.IndianRed;
+                errNombre.SetError(txtNombrePasagero, "Debe escribir el nombre");
+            }
+            else if (txtNombrePasagero.Text.Length >= 30)
+            {
+                txtNombrePasagero.Focus();
+                txtNombrePasagero.BackColor = Color.IndianRed;
+                errNombre.SetError(txtNombrePasagero, "El nombre debe de ser menor a 30 caracteres");
+            }
+            else
+            {
+                errNombre.Clear();
+                txtNombrePasagero.BackColor = Color.White;
+            }
+        }
+        /// <summary>
+        /// Valida que el campo de los apellidos no este vacio
+        /// que no sea igual al nombre
+        /// y que no supere los 30 caracteres 
+        /// </summary>
+        private void validarApellidos()
+        {
+            if (string.IsNullOrEmpty(txtApellidoPasageri.Text) == true && txtApellidoPasageri.Text == "")
+            {
+                txtApellidoPasageri.Focus();
+                txtApellidoPasageri.BackColor = Color.IndianRed;
+                errApellidos.SetError(txtApellidoPasageri, "Debe escribir el correo");
+            }
+            else if (txtNombrePasagero.Text == txtApellidoPasageri.Text)
+            {
+                txtApellidoPasageri.Focus();
+                txtApellidoPasageri.BackColor = Color.IndianRed;
+                errApellidos.SetError(txtApellidoPasageri, "El aplido debe de ser diferente al nombre");
+            }
+            else if (txtApellidoPasageri.Text.Length >= 30)
+            {
+                txtApellidoPasageri.Focus();
+                txtApellidoPasageri.BackColor = Color.IndianRed;
+                errApellidos.SetError(txtApellidoPasageri, "El Apellido debe de ser menor a 30 caracteres");
+            }
+            else
+            {
+                errApellidos.Clear();
+                txtApellidoPasageri.BackColor = Color.White;
+            }
+        }
+
+        /// <summary>
+        /// valida que el campo no este vacio 
+        /// y que coincidaa con el patron de un numero de telefono
+        /// </summary>
+        private void validarNumeroDeTelefono()
+        {
+            //Automata para la validacion del numero de telefono
+            string patron = @"^\(?\d{2}\)?[- ]?\d{4}[- ]?\d{4}$";
+
+            if (string.IsNullOrEmpty(txtNumeroTelefono.Text))
+            {
+                txtNumeroTelefono.Focus();
+                txtNumeroTelefono.BackColor = Color.IndianRed;
+                errNueroTelefono.SetError(txtNumeroTelefono, "Debe escribir el número telefónico");
+            }
+            else if (!Regex.IsMatch(txtNumeroTelefono.Text, patron))
+            {
+                txtNumeroTelefono.Focus();
+                txtNumeroTelefono.BackColor = Color.IndianRed;
+                errNueroTelefono.SetError(txtNumeroTelefono, "Formato de teléfono inválido. Use 10 dígitos (ej. 5512345678 o 55-1234-5678)");
+            }
+            else
+            {
+                errNueroTelefono.Clear();
+                txtNumeroTelefono.BackColor = Color.White;
+            }
+        }
+
+        /// <summary>
+        /// Valida que el campo del pasaporte no este vacio 
+        /// acepta cualquir cosa 
+        /// </summary>
+        private void validarPasaporte()
+        {
+            if (string.IsNullOrEmpty(txtnoPasaporte.Text) == true)
+            {
+                txtnoPasaporte.Focus();
+                txtnoPasaporte.BackColor = Color.IndianRed;
+                errNoPasaporte.SetError(txtnoPasaporte, "Debe escribir el nombre");
+            }
+            else
+            {
+                errNoPasaporte.Clear();
+                txtnoPasaporte.BackColor = Color.White;
+            }
+        }
+
+
+        #region Validar
+
+        private void txtNombrePasagero_Leave(object sender, EventArgs e)
+        {
+            validarNombre();
+        }
+
+        private void txtApellidoPasageri_Leave(object sender, EventArgs e)
+        {
+            validarApellidos();
+        }
+        private void txtNumeroTelefono_Leave(object sender, EventArgs e)
+        {
+            validarNumeroDeTelefono();
+        }
+
+        private void txtnoPasaporte_Leave(object sender, EventArgs e)
+        {
+            validarPasaporte();
+        }
+
+        #endregion
+
+        #endregion
+
+
     }
 
 

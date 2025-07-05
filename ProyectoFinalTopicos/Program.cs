@@ -16,7 +16,7 @@ namespace ProyectoFinalTopicos
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmEscoger());
+            Application.Run(new frmVentaDeVoletos());
         }
     }
 }

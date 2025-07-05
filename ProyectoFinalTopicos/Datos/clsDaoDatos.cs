@@ -154,6 +154,8 @@ namespace ProyectoFinalTopicos.Datos
             }
         }
 
+        //Se actualizo el metodo de insertar pasagero para saber si es menor o no. 
+
         public bool InsertarPasajero(Pasajero pasajero, out int idInsertado)
         {
             MySqlConnection conn = null;

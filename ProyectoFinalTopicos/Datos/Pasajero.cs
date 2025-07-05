@@ -20,7 +20,12 @@ namespace ProyectoFinalTopicos.Datos
         public decimal PrecioMaletas { get; set; }
         public string Origen { get; set; }
         public string Destino { get; set; }
-        public string Descripcion => $"{NumeroPasajero}. {NombreCompleto} - {Asiento} (${PrecioTotal.ToString("0.00")})";
+        //public double PrecioBaseVuelo { get; set; }
+        public bool EsMenor { get; set; }
+        public decimal Descuento { get; set; }
         public decimal PrecioTotal => PrecioBase + PrecioMaletas;
+        public string Descripcion => $"{NumeroPasajero}. {NombreCompleto} - {Asiento} (${PrecioTotal.ToString("0.00")})";
+        public decimal TotalConDescuento => PrecioBase + PrecioMaletas - Descuento;
+        //+ PrecioBaseVuelo;
     }
 }

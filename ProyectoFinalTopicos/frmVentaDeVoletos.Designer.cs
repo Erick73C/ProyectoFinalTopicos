@@ -46,6 +46,7 @@
             this.btnEliminarPasajero = new System.Windows.Forms.Button();
             this.btnMoverAsiento = new System.Windows.Forms.Button();
             this.lstPasajeros = new System.Windows.Forms.ListBox();
+            this.lblNombreVuelo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.grdAsientos)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numAsientos)).BeginInit();
@@ -62,10 +63,12 @@
             this.grdAsientos.ColumnHeadersVisible = false;
             this.grdAsientos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grdAsientos.Location = new System.Drawing.Point(0, 0);
+            this.grdAsientos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grdAsientos.Name = "grdAsientos";
             this.grdAsientos.ReadOnly = true;
             this.grdAsientos.RowHeadersVisible = false;
-            this.grdAsientos.Size = new System.Drawing.Size(604, 339);
+            this.grdAsientos.RowHeadersWidth = 51;
+            this.grdAsientos.Size = new System.Drawing.Size(805, 417);
             this.grdAsientos.TabIndex = 0;
             this.grdAsientos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdAsientos_CellClick);
             // 
@@ -73,18 +76,20 @@
             // 
             this.panel1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panel1.Controls.Add(this.grdAsientos);
-            this.panel1.Location = new System.Drawing.Point(397, 63);
+            this.panel1.Location = new System.Drawing.Point(529, 78);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(604, 339);
+            this.panel1.Size = new System.Drawing.Size(805, 417);
             this.panel1.TabIndex = 1;
             // 
             // lnlPrecio
             // 
             this.lnlPrecio.AutoSize = true;
             this.lnlPrecio.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lnlPrecio.Location = new System.Drawing.Point(562, 23);
+            this.lnlPrecio.Location = new System.Drawing.Point(749, 28);
+            this.lnlPrecio.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lnlPrecio.Name = "lnlPrecio";
-            this.lnlPrecio.Size = new System.Drawing.Size(84, 25);
+            this.lnlPrecio.Size = new System.Drawing.Size(104, 31);
             this.lnlPrecio.TabIndex = 2;
             this.lnlPrecio.Text = "______";
             // 
@@ -92,17 +97,19 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(436, 23);
+            this.label2.Location = new System.Drawing.Point(581, 28);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(120, 25);
+            this.label2.Size = new System.Drawing.Size(150, 31);
             this.label2.TabIndex = 3;
             this.label2.Text = "Precio total";
             // 
             // btntiket
             // 
-            this.btntiket.Location = new System.Drawing.Point(592, 71);
+            this.btntiket.Location = new System.Drawing.Point(789, 87);
+            this.btntiket.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btntiket.Name = "btntiket";
-            this.btntiket.Size = new System.Drawing.Size(121, 38);
+            this.btntiket.Size = new System.Drawing.Size(161, 47);
             this.btntiket.TabIndex = 4;
             this.btntiket.Text = "Ir al titet";
             this.btntiket.UseVisualStyleBackColor = true;
@@ -112,24 +119,27 @@
             // 
             this.lblInstruccion.AutoSize = true;
             this.lblInstruccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInstruccion.Location = new System.Drawing.Point(3, 21);
+            this.lblInstruccion.Location = new System.Drawing.Point(4, 26);
+            this.lblInstruccion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblInstruccion.Name = "lblInstruccion";
-            this.lblInstruccion.Size = new System.Drawing.Size(208, 20);
+            this.lblInstruccion.Size = new System.Drawing.Size(257, 25);
             this.lblInstruccion.TabIndex = 5;
             this.lblInstruccion.Text = "Numero de Asientos a elegir\r\n";
             // 
             // numAsientos
             // 
-            this.numAsientos.Location = new System.Drawing.Point(217, 24);
+            this.numAsientos.Location = new System.Drawing.Point(289, 30);
+            this.numAsientos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.numAsientos.Name = "numAsientos";
-            this.numAsientos.Size = new System.Drawing.Size(120, 20);
+            this.numAsientos.Size = new System.Drawing.Size(160, 22);
             this.numAsientos.TabIndex = 6;
             // 
             // btnEstablecerAsientos
             // 
-            this.btnEstablecerAsientos.Location = new System.Drawing.Point(429, 71);
+            this.btnEstablecerAsientos.Location = new System.Drawing.Point(572, 87);
+            this.btnEstablecerAsientos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnEstablecerAsientos.Name = "btnEstablecerAsientos";
-            this.btnEstablecerAsientos.Size = new System.Drawing.Size(157, 38);
+            this.btnEstablecerAsientos.Size = new System.Drawing.Size(209, 47);
             this.btnEstablecerAsientos.TabIndex = 7;
             this.btnEstablecerAsientos.Text = "Confirmar Asientos";
             this.btnEstablecerAsientos.UseVisualStyleBackColor = true;
@@ -147,18 +157,20 @@
             this.panel2.Controls.Add(this.numAsientos);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.lblInstruccion);
-            this.panel2.Location = new System.Drawing.Point(316, 426);
+            this.panel2.Location = new System.Drawing.Point(421, 524);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(717, 117);
+            this.panel2.Size = new System.Drawing.Size(956, 144);
             this.panel2.TabIndex = 8;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(36, 88);
+            this.label5.Location = new System.Drawing.Point(48, 108);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(65, 20);
+            this.label5.Size = new System.Drawing.Size(81, 25);
             this.label5.TabIndex = 10;
             this.label5.Text = "Maletas";
             // 
@@ -166,9 +178,10 @@
             // 
             this.lblCostoMaleta.AutoSize = true;
             this.lblCostoMaleta.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCostoMaleta.Location = new System.Drawing.Point(121, 83);
+            this.lblCostoMaleta.Location = new System.Drawing.Point(161, 102);
+            this.lblCostoMaleta.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCostoMaleta.Name = "lblCostoMaleta";
-            this.lblCostoMaleta.Size = new System.Drawing.Size(84, 25);
+            this.lblCostoMaleta.Size = new System.Drawing.Size(104, 31);
             this.lblCostoMaleta.TabIndex = 9;
             this.lblCostoMaleta.Text = "______";
             // 
@@ -176,9 +189,10 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(35, 58);
+            this.label3.Location = new System.Drawing.Point(47, 71);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(137, 25);
+            this.label3.Size = new System.Drawing.Size(170, 31);
             this.label3.TabIndex = 8;
             this.label3.Text = "Montos extra";
             // 
@@ -186,9 +200,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(16, 11);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(329, 42);
+            this.label1.Size = new System.Drawing.Size(406, 54);
             this.label1.TabIndex = 9;
             this.label1.Text = "Elige tus asientos";
             // 
@@ -199,9 +214,11 @@
             this.grpPasajeros.Controls.Add(this.btnEliminarPasajero);
             this.grpPasajeros.Controls.Add(this.btnMoverAsiento);
             this.grpPasajeros.Controls.Add(this.lstPasajeros);
-            this.grpPasajeros.Location = new System.Drawing.Point(19, 63);
+            this.grpPasajeros.Location = new System.Drawing.Point(25, 78);
+            this.grpPasajeros.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grpPasajeros.Name = "grpPasajeros";
-            this.grpPasajeros.Size = new System.Drawing.Size(229, 504);
+            this.grpPasajeros.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpPasajeros.Size = new System.Drawing.Size(305, 620);
             this.grpPasajeros.TabIndex = 10;
             this.grpPasajeros.TabStop = false;
             this.grpPasajeros.Text = "Lista de Pasageros ";
@@ -210,18 +227,20 @@
             // 
             this.lblContadorPasageros.AutoSize = true;
             this.lblContadorPasageros.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblContadorPasageros.Location = new System.Drawing.Point(54, 467);
+            this.lblContadorPasageros.Location = new System.Drawing.Point(72, 575);
+            this.lblContadorPasageros.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblContadorPasageros.Name = "lblContadorPasageros";
-            this.lblContadorPasageros.Size = new System.Drawing.Size(109, 24);
+            this.lblContadorPasageros.Size = new System.Drawing.Size(139, 29);
             this.lblContadorPasageros.TabIndex = 3;
             this.lblContadorPasageros.Text = "_________";
             // 
             // btnEliminarPasajero
             // 
             this.btnEliminarPasajero.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEliminarPasajero.Location = new System.Drawing.Point(47, 396);
+            this.btnEliminarPasajero.Location = new System.Drawing.Point(63, 487);
+            this.btnEliminarPasajero.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnEliminarPasajero.Name = "btnEliminarPasajero";
-            this.btnEliminarPasajero.Size = new System.Drawing.Size(116, 41);
+            this.btnEliminarPasajero.Size = new System.Drawing.Size(155, 50);
             this.btnEliminarPasajero.TabIndex = 2;
             this.btnEliminarPasajero.Text = "Eliminar pasagero";
             this.btnEliminarPasajero.UseVisualStyleBackColor = true;
@@ -230,9 +249,10 @@
             // btnMoverAsiento
             // 
             this.btnMoverAsiento.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMoverAsiento.Location = new System.Drawing.Point(47, 337);
+            this.btnMoverAsiento.Location = new System.Drawing.Point(63, 415);
+            this.btnMoverAsiento.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnMoverAsiento.Name = "btnMoverAsiento";
-            this.btnMoverAsiento.Size = new System.Drawing.Size(116, 35);
+            this.btnMoverAsiento.Size = new System.Drawing.Size(155, 43);
             this.btnMoverAsiento.TabIndex = 1;
             this.btnMoverAsiento.Text = "Mover Asiento";
             this.btnMoverAsiento.UseVisualStyleBackColor = true;
@@ -242,22 +262,35 @@
             // 
             this.lstPasajeros.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstPasajeros.FormattingEnabled = true;
-            this.lstPasajeros.ItemHeight = 18;
-            this.lstPasajeros.Location = new System.Drawing.Point(6, 39);
+            this.lstPasajeros.ItemHeight = 24;
+            this.lstPasajeros.Location = new System.Drawing.Point(8, 48);
+            this.lstPasajeros.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.lstPasajeros.Name = "lstPasajeros";
-            this.lstPasajeros.Size = new System.Drawing.Size(217, 292);
+            this.lstPasajeros.Size = new System.Drawing.Size(288, 340);
             this.lstPasajeros.TabIndex = 0;
             this.lstPasajeros.SelectedIndexChanged += new System.EventHandler(this.lstPasajeros_SelectedIndexChanged);
             // 
+            // lblNombreVuelo
+            // 
+            this.lblNombreVuelo.AutoSize = true;
+            this.lblNombreVuelo.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombreVuelo.Location = new System.Drawing.Point(850, 45);
+            this.lblNombreVuelo.Name = "lblNombreVuelo";
+            this.lblNombreVuelo.Size = new System.Drawing.Size(177, 29);
+            this.lblNombreVuelo.TabIndex = 11;
+            this.lblNombreVuelo.Text = "Nombre vuelo";
+            // 
             // frmVentaDeVoletos
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1177, 588);
+            this.ClientSize = new System.Drawing.Size(1569, 724);
+            this.Controls.Add(this.lblNombreVuelo);
             this.Controls.Add(this.grpPasajeros);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "frmVentaDeVoletos";
             this.Text = "frmVentaDeVoletos";
             this.Load += new System.EventHandler(this.frmVentaDeVoletos_Load);
@@ -293,5 +326,6 @@
         private System.Windows.Forms.Button btnEliminarPasajero;
         private System.Windows.Forms.Button btnMoverAsiento;
         private System.Windows.Forms.Label lblContadorPasageros;
+        private System.Windows.Forms.Label lblNombreVuelo;
     }
 }

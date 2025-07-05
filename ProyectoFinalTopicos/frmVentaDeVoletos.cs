@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,6 +32,10 @@ namespace ProyectoFinalTopicos
         private Pasajero pasajeroReasignando;
         private const int MAX_PASAJEROS = 9; // Límite máximo de pasajeros
         private Pasajero pasajeroSeleccionado = null;
+        //Lista de boletos
+        private List<Boleto> boletosGuardados = new List<Boleto>();
+        
+
         #endregion
 
         private clsDaoDatos dao = new clsDaoDatos();
@@ -99,6 +104,11 @@ namespace ProyectoFinalTopicos
 
         }
 
+        /// <summary>
+        /// Se encarga de mover el numero de asiento del pasagero que se selecciono
+        /// el asiento tiene que estar vacio 
+        /// </summary>
+        /// <param name="e"></param>
         private void ReasignarAsiento(DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 3 || e.RowIndex < 0 || e.ColumnIndex < 0)
@@ -477,29 +487,11 @@ namespace ProyectoFinalTopicos
         #endregion
 
         #region Eventos de botones
-
-
-
-        private void btnLimpiar_Click(object sender, EventArgs e)
-        {
-            asientosOcupados.Clear();
-            pasajeros.Clear();
-            asientosASeleccionar = 0;
-            asientosSeleccionados = 0;
-            numAsientos.Value = 1;
-            lnlPrecio.Text = "Total: $0.00";
-            lblCostoMaleta.Text = "Total por maletas: $0.00";
-            btntiket.Enabled = false;
-            lblInstruccion.Text = "Ingrese cantidad de asientos";
-            DibujarMapaAsientos();
-        }
-
-        private void btntiket_Click(object sender, EventArgs e)
-        {
-            frmTicket tk = new frmTicket();
-            tk.ShowDialog();
-        }
-
+        /// <summary>
+        /// Mueve al pasagero seleccionado en la lista de pasageros a otro asiento que no este ocupado
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnMoverAsiento_Click(object sender, EventArgs e)
         {
             if (pasajeroSeleccionado == null) return;
@@ -518,6 +510,11 @@ namespace ProyectoFinalTopicos
             numAsientos.Enabled = false;
         }
 
+        /// <summary>
+        /// Elimina el pasagero seleccionado en la lista
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnEliminarPasajero_Click(object sender, EventArgs e)
         {
             if (pasajeroSeleccionado == null) return;
@@ -553,8 +550,14 @@ namespace ProyectoFinalTopicos
                 }
             }
         }
-        #endregion
 
+
+        /// <summary>
+        /// Se encarga recopilar los datos de los asientos y guardarlos en la base de datos 
+        /// si no hay ningun error
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnEstablecerAsientos_Click_1(object sender, EventArgs e)
         {
             int cantidad = (int)numAsientos.Value;
@@ -568,6 +571,8 @@ namespace ProyectoFinalTopicos
                 }
 
                 bool errores = false;
+
+                boletosGuardados.Clear();
 
                 foreach (var pasajero in pasajeros)
                 {
@@ -585,7 +590,7 @@ namespace ProyectoFinalTopicos
                         dao.InsertarVueloSiNoExiste(vuelo);
                         dao.InsertarPasajero(pasajero, out int idPasajero);
 
-                        string identificadorUnico = Guid.NewGuid().ToString();
+                        string identificadorUnico = Guid.NewGuid().ToString("N").Substring(0, 13);
 
                         Boleto boleto = new Boleto
                         {
@@ -597,7 +602,7 @@ namespace ProyectoFinalTopicos
                             Pasajero = pasajero,
                             Vuelo = vuelo
                         };
-
+                        boletosGuardados.Add(boleto);
                         dao.InsertarBoleto(boleto, idPasajero);
                     }
                     catch (Exception ex)
@@ -615,7 +620,8 @@ namespace ProyectoFinalTopicos
                     asientosSeleccionados = 0;
                     asientosASeleccionar = 0;
                     numAsientos.Value = 1;
-                    btntiket.Enabled = false;
+                    //btntiket.Enabled = false;
+                    btntiket.Enabled = boletosGuardados.Count > 0;
                     lnlPrecio.Text = "Total: $0.00";
                     lblCostoMaleta.Text = "Total por maletas: $0.00";
                     lblInstruccion.Text = "Ingrese cantidad de asientos";
@@ -634,5 +640,37 @@ namespace ProyectoFinalTopicos
                 MessageBox.Show("Ingrese un número válido de asientos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        /// <summary>
+        /// Manda a imprimir directamente los boletos con los datos de los pasagero(s)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btntiket_Click(object sender, EventArgs e)
+        {
+            if (boletosGuardados.Count == 0)
+            {
+                MessageBox.Show("No hay boletos disponibles para imprimir.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            clsImprimirBoleto impresor = new clsImprimirBoleto(boletosGuardados);
+            PrintDocument pd = new PrintDocument();
+            pd.PrintPage += new PrintPageEventHandler(impresor.Imprimir);
+
+            PrintDialog dialogo = new PrintDialog
+            {
+                Document = pd,
+                UseEXDialog = true
+            };
+
+            if (dialogo.ShowDialog() == DialogResult.OK)
+            {
+                pd.Print();
+            }
+        }
+
+        #endregion
+
     }
 }

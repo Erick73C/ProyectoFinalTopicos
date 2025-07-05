@@ -17,6 +17,10 @@ namespace ProyectoFinalTopicos
             InitializeComponent();
         }
 
-
+        private void btnCancun_Click(object sender, EventArgs e)
+        {
+            frmventanaeleccion k = new frmventanaeleccion();
+            k.ShowDialog();
+        }
     }
 }
