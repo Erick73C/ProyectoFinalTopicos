@@ -243,5 +243,52 @@ namespace ProyectoFinalTopicos.Datos
             }
         }
 
+
+        public Vuelo ObtenerDatosVueloPorDestino(string destino)
+        {
+            MySqlConnection conn = null;
+            MySqlCommand cmd = null;
+            MySqlDataReader reader = null;
+
+            try
+            {
+                conn = new MySqlConnection(conexion);
+                conn.Open();
+
+                string query = "SELECT * FROM Vuelos WHERE AeropuertoDestino = @Destino LIMIT 1;";
+                cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@Destino", destino);
+
+                reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    Vuelo vuelo = new Vuelo
+                    {
+                        NumeroVuelo = reader["NumeroVuelo"].ToString(),
+                        AeropuertoOrigen = reader["AeropuertoOrigen"].ToString(),
+                        AeropuertoDestino = reader["AeropuertoDestino"].ToString(),
+                        FechaHoraSalida = Convert.ToDateTime(reader["FechaHoraSalida"]),
+                        FechaHoraLlegada = Convert.ToDateTime(reader["FechaHoraLlegada"]),
+                        PrecioBase = Convert.ToDecimal(reader["PrecioBase"])
+                    };
+
+                    return vuelo;
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al obtener los datos del vuelo.", ex);
+            }
+            finally
+            {
+                reader?.Close();
+                cmd?.Dispose();
+                conn?.Close();
+                conn?.Dispose();
+            }
+        }
+
     }
 }

@@ -34,7 +34,10 @@ namespace ProyectoFinalTopicos
         private Pasajero pasajeroSeleccionado = null;
         //Lista de boletos
         private List<Boleto> boletosGuardados = new List<Boleto>();
-        
+
+        private int totalPasajerosEsperados;
+        private int cantidadMenores;
+
 
         #endregion
 
@@ -42,9 +45,13 @@ namespace ProyectoFinalTopicos
 
         #region Metodos y eventos principales y auxiliares 
 
-        public frmVentaDeVoletos()
+        public frmVentaDeVoletos(int totalPasajeros, int menores)
         {
             InitializeComponent();
+
+            totalPasajerosEsperados = totalPasajeros;
+            cantidadMenores = menores;
+
             lstPasajeros.DataSource = pasajeros;
             lstPasajeros.DisplayMember = "Descripcion";
             lstPasajeros.ValueMember = "Asiento";
@@ -77,6 +84,10 @@ namespace ProyectoFinalTopicos
         {
             btntiket.Enabled = false;
             numAsientos.ValueChanged += numAsientos_ValueChanged;
+
+            numAsientos.Value = totalPasajerosEsperados;
+            numAsientos.Enabled = false;
+            lblContadorPasageros.Text = $"0/{totalPasajerosEsperados}";
         }
 
         /// <summary>
@@ -450,11 +461,13 @@ namespace ProyectoFinalTopicos
                     // Agregar a lista de asientos ocupados
                     asientosOcupados.Add(numeroAsiento);
 
+                    bool esMenor = pasajeros.Count(p => p.EsMenor) < cantidadMenores;
                     // Crear nuevo pasajero
                     var nuevoPasajero = new Pasajero
                     {
                         Nombre = formDatos.NombrePasajero,
                         Apellido = formDatos.ApellidoPasajero,
+                        EsMenor = esMenor,
                         Asiento = numeroAsiento,
                         PrecioBase = PRECIO_ASIENTO,
                         PrecioMaletas = formDatos.TotalMaletas,

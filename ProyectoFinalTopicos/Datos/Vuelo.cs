@@ -13,6 +13,6 @@ namespace ProyectoFinalTopicos.Datos
         public string AeropuertoDestino { get; set; }
         public DateTime FechaHoraSalida { get; set; }
         public DateTime FechaHoraLlegada { get; set; }
-        //public double PrecioBaseVuelo { get; set; }
+        public decimal PrecioBase { get; set; }
     }
 }

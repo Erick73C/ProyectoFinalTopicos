@@ -38,7 +38,7 @@
             this.label35 = new System.Windows.Forms.Label();
             this.gpbCabos = new System.Windows.Forms.GroupBox();
             this.label43 = new System.Windows.Forms.Label();
-            this.button7 = new System.Windows.Forms.Button();
+            this.btnLosCabos = new System.Windows.Forms.Button();
             this.label24 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -46,7 +46,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.gpbPuertoVallar = new System.Windows.Forms.GroupBox();
             this.label40 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnPuertoVallasta = new System.Windows.Forms.Button();
             this.label32 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -55,7 +55,7 @@
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
             this.gpbHermosillo = new System.Windows.Forms.GroupBox();
             this.label37 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btnHermosillo = new System.Windows.Forms.Button();
             this.label33 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -64,7 +64,7 @@
             this.label20 = new System.Windows.Forms.Label();
             this.gpbBogota = new System.Windows.Forms.GroupBox();
             this.label42 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnBogota = new System.Windows.Forms.Button();
             this.label27 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
@@ -72,7 +72,7 @@
             this.label26 = new System.Windows.Forms.Label();
             this.gpbWashington = new System.Windows.Forms.GroupBox();
             this.label41 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btnwashington = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -81,7 +81,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.gpbNuevaYork = new System.Windows.Forms.GroupBox();
             this.label39 = new System.Windows.Forms.Label();
-            this.button6 = new System.Windows.Forms.Button();
+            this.btnNuevaYork = new System.Windows.Forms.Button();
             this.label36 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -89,7 +89,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.gpbSanFrancisco = new System.Windows.Forms.GroupBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnSanFrancisco = new System.Windows.Forms.Button();
             this.label38 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
@@ -137,7 +137,7 @@
             this.label29.Font = new System.Drawing.Font("Georgia", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label29.Location = new System.Drawing.Point(109, 318);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(206, 20);
+            this.label29.Size = new System.Drawing.Size(171, 17);
             this.label29.TabIndex = 30;
             this.label29.Text = "Sencillo, Clase Económica";
             // 
@@ -160,7 +160,7 @@
             this.label19.Font = new System.Drawing.Font("Georgia", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label19.Location = new System.Drawing.Point(260, 267);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(55, 20);
+            this.label19.Size = new System.Drawing.Size(46, 17);
             this.label19.TabIndex = 6;
             this.label19.Text = "Desde";
             // 
@@ -170,7 +170,7 @@
             this.lblTitle2.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle2.Location = new System.Drawing.Point(13, 230);
             this.lblTitle2.Name = "lblTitle2";
-            this.lblTitle2.Size = new System.Drawing.Size(288, 27);
+            this.lblTitle2.Size = new System.Drawing.Size(236, 23);
             this.lblTitle2.TabIndex = 5;
             this.lblTitle2.Text = "(MEX) a Cancún (CUN)";
             // 
@@ -180,7 +180,7 @@
             this.lblTitle1.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle1.Location = new System.Drawing.Point(13, 203);
             this.lblTitle1.Name = "lblTitle1";
-            this.lblTitle1.Size = new System.Drawing.Size(222, 27);
+            this.lblTitle1.Size = new System.Drawing.Size(185, 23);
             this.lblTitle1.TabIndex = 4;
             this.lblTitle1.Text = "Ciudad de México";
             // 
@@ -201,7 +201,7 @@
             this.label35.ForeColor = System.Drawing.Color.MediumOrchid;
             this.label35.Location = new System.Drawing.Point(218, 287);
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(123, 31);
+            this.label35.Size = new System.Drawing.Size(103, 26);
             this.label35.TabIndex = 28;
             this.label35.Text = "MXN 299";
             // 
@@ -209,7 +209,7 @@
             // 
             this.gpbCabos.BackColor = System.Drawing.Color.White;
             this.gpbCabos.Controls.Add(this.label43);
-            this.gpbCabos.Controls.Add(this.button7);
+            this.gpbCabos.Controls.Add(this.btnLosCabos);
             this.gpbCabos.Controls.Add(this.label24);
             this.gpbCabos.Controls.Add(this.label1);
             this.gpbCabos.Controls.Add(this.pictureBox1);
@@ -227,21 +227,22 @@
             this.label43.Font = new System.Drawing.Font("Georgia", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label43.Location = new System.Drawing.Point(105, 318);
             this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(206, 20);
+            this.label43.Size = new System.Drawing.Size(171, 17);
             this.label43.TabIndex = 37;
             this.label43.Text = "Sencillo, Clase Económica";
             // 
-            // button7
+            // btnLosCabos
             // 
-            this.button7.BackColor = System.Drawing.Color.DarkMagenta;
-            this.button7.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.ForeColor = System.Drawing.Color.White;
-            this.button7.Location = new System.Drawing.Point(17, 359);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(312, 52);
-            this.button7.TabIndex = 36;
-            this.button7.Text = "Reserva ahora";
-            this.button7.UseVisualStyleBackColor = false;
+            this.btnLosCabos.BackColor = System.Drawing.Color.DarkMagenta;
+            this.btnLosCabos.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLosCabos.ForeColor = System.Drawing.Color.White;
+            this.btnLosCabos.Location = new System.Drawing.Point(17, 359);
+            this.btnLosCabos.Name = "btnLosCabos";
+            this.btnLosCabos.Size = new System.Drawing.Size(312, 52);
+            this.btnLosCabos.TabIndex = 36;
+            this.btnLosCabos.Text = "Reserva ahora";
+            this.btnLosCabos.UseVisualStyleBackColor = false;
+            this.btnLosCabos.Click += new System.EventHandler(this.btnLosCabos_Click);
             // 
             // label24
             // 
@@ -249,7 +250,7 @@
             this.label24.Font = new System.Drawing.Font("Georgia", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label24.Location = new System.Drawing.Point(256, 267);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(55, 20);
+            this.label24.Size = new System.Drawing.Size(46, 17);
             this.label24.TabIndex = 11;
             this.label24.Text = "Desde";
             // 
@@ -259,7 +260,7 @@
             this.label1.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(16, 230);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(313, 27);
+            this.label1.Size = new System.Drawing.Size(254, 23);
             this.label1.TabIndex = 7;
             this.label1.Text = "(MEX) a Los Cabos (SJD)";
             // 
@@ -280,7 +281,7 @@
             this.label34.ForeColor = System.Drawing.Color.MediumOrchid;
             this.label34.Location = new System.Drawing.Point(218, 287);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(123, 31);
+            this.label34.Size = new System.Drawing.Size(103, 26);
             this.label34.TabIndex = 27;
             this.label34.Text = "MXN 599";
             // 
@@ -290,7 +291,7 @@
             this.label2.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(16, 203);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(222, 27);
+            this.label2.Size = new System.Drawing.Size(185, 23);
             this.label2.TabIndex = 6;
             this.label2.Text = "Ciudad de México";
             // 
@@ -298,7 +299,7 @@
             // 
             this.gpbPuertoVallar.BackColor = System.Drawing.Color.White;
             this.gpbPuertoVallar.Controls.Add(this.label40);
-            this.gpbPuertoVallar.Controls.Add(this.button2);
+            this.gpbPuertoVallar.Controls.Add(this.btnPuertoVallasta);
             this.gpbPuertoVallar.Controls.Add(this.label32);
             this.gpbPuertoVallar.Controls.Add(this.label15);
             this.gpbPuertoVallar.Controls.Add(this.label3);
@@ -317,21 +318,22 @@
             this.label40.Font = new System.Drawing.Font("Georgia", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label40.Location = new System.Drawing.Point(106, 318);
             this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(206, 20);
+            this.label40.Size = new System.Drawing.Size(171, 17);
             this.label40.TabIndex = 34;
             this.label40.Text = "Sencillo, Clase Económica";
             // 
-            // button2
+            // btnPuertoVallasta
             // 
-            this.button2.BackColor = System.Drawing.Color.DarkMagenta;
-            this.button2.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(20, 359);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(312, 52);
-            this.button2.TabIndex = 31;
-            this.button2.Text = "Reserva ahora";
-            this.button2.UseVisualStyleBackColor = false;
+            this.btnPuertoVallasta.BackColor = System.Drawing.Color.DarkMagenta;
+            this.btnPuertoVallasta.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPuertoVallasta.ForeColor = System.Drawing.Color.White;
+            this.btnPuertoVallasta.Location = new System.Drawing.Point(20, 359);
+            this.btnPuertoVallasta.Name = "btnPuertoVallasta";
+            this.btnPuertoVallasta.Size = new System.Drawing.Size(312, 52);
+            this.btnPuertoVallasta.TabIndex = 31;
+            this.btnPuertoVallasta.Text = "Reserva ahora";
+            this.btnPuertoVallasta.UseVisualStyleBackColor = false;
+            this.btnPuertoVallasta.Click += new System.EventHandler(this.btnPuertoVallasta_Click);
             // 
             // label32
             // 
@@ -340,7 +342,7 @@
             this.label32.ForeColor = System.Drawing.Color.MediumOrchid;
             this.label32.Location = new System.Drawing.Point(232, 287);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(109, 31);
+            this.label32.Size = new System.Drawing.Size(91, 26);
             this.label32.TabIndex = 25;
             this.label32.Text = "MXN 49";
             // 
@@ -350,7 +352,7 @@
             this.label15.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.Location = new System.Drawing.Point(15, 257);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(90, 27);
+            this.label15.Size = new System.Drawing.Size(73, 23);
             this.label15.TabIndex = 10;
             this.label15.Text = " (PVR)";
             // 
@@ -360,7 +362,7 @@
             this.label3.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(19, 230);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(302, 27);
+            this.label3.Size = new System.Drawing.Size(246, 23);
             this.label3.TabIndex = 9;
             this.label3.Text = "(MEX) a Puerto Vallarta";
             // 
@@ -370,7 +372,7 @@
             this.label23.Font = new System.Drawing.Font("Georgia", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label23.Location = new System.Drawing.Point(257, 267);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(55, 20);
+            this.label23.Size = new System.Drawing.Size(46, 17);
             this.label23.TabIndex = 10;
             this.label23.Text = "Desde";
             // 
@@ -380,7 +382,7 @@
             this.label4.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(19, 203);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(222, 27);
+            this.label4.Size = new System.Drawing.Size(185, 23);
             this.label4.TabIndex = 8;
             this.label4.Text = "Ciudad de México";
             // 
@@ -398,7 +400,7 @@
             // 
             this.gpbHermosillo.BackColor = System.Drawing.Color.White;
             this.gpbHermosillo.Controls.Add(this.label37);
-            this.gpbHermosillo.Controls.Add(this.button5);
+            this.gpbHermosillo.Controls.Add(this.btnHermosillo);
             this.gpbHermosillo.Controls.Add(this.label33);
             this.gpbHermosillo.Controls.Add(this.label16);
             this.gpbHermosillo.Controls.Add(this.label5);
@@ -417,21 +419,22 @@
             this.label37.Font = new System.Drawing.Font("Georgia", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label37.Location = new System.Drawing.Point(108, 318);
             this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(206, 20);
+            this.label37.Size = new System.Drawing.Size(171, 17);
             this.label37.TabIndex = 31;
             this.label37.Text = "Sencillo, Clase Económica";
             // 
-            // button5
+            // btnHermosillo
             // 
-            this.button5.BackColor = System.Drawing.Color.DarkMagenta;
-            this.button5.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.ForeColor = System.Drawing.Color.White;
-            this.button5.Location = new System.Drawing.Point(21, 359);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(312, 52);
-            this.button5.TabIndex = 34;
-            this.button5.Text = "Reserva ahora";
-            this.button5.UseVisualStyleBackColor = false;
+            this.btnHermosillo.BackColor = System.Drawing.Color.DarkMagenta;
+            this.btnHermosillo.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHermosillo.ForeColor = System.Drawing.Color.White;
+            this.btnHermosillo.Location = new System.Drawing.Point(21, 359);
+            this.btnHermosillo.Name = "btnHermosillo";
+            this.btnHermosillo.Size = new System.Drawing.Size(312, 52);
+            this.btnHermosillo.TabIndex = 34;
+            this.btnHermosillo.Text = "Reserva ahora";
+            this.btnHermosillo.UseVisualStyleBackColor = false;
+            this.btnHermosillo.Click += new System.EventHandler(this.btnHermosillo_Click);
             // 
             // label33
             // 
@@ -440,7 +443,7 @@
             this.label33.ForeColor = System.Drawing.Color.MediumOrchid;
             this.label33.Location = new System.Drawing.Point(218, 287);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(123, 31);
+            this.label33.Size = new System.Drawing.Size(103, 26);
             this.label33.TabIndex = 26;
             this.label33.Text = "MXN 449";
             // 
@@ -450,7 +453,7 @@
             this.label16.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.Location = new System.Drawing.Point(16, 257);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(102, 27);
+            this.label16.Size = new System.Drawing.Size(83, 23);
             this.label16.TabIndex = 11;
             this.label16.Text = " (HMO)";
             // 
@@ -460,7 +463,7 @@
             this.label5.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(20, 230);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(253, 27);
+            this.label5.Size = new System.Drawing.Size(207, 23);
             this.label5.TabIndex = 11;
             this.label5.Text = "(MEX) a Hermosillo";
             // 
@@ -480,7 +483,7 @@
             this.label6.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(20, 203);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(222, 27);
+            this.label6.Size = new System.Drawing.Size(185, 23);
             this.label6.TabIndex = 10;
             this.label6.Text = "Ciudad de México";
             // 
@@ -490,7 +493,7 @@
             this.label20.Font = new System.Drawing.Font("Georgia", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label20.Location = new System.Drawing.Point(259, 267);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(55, 20);
+            this.label20.Size = new System.Drawing.Size(46, 17);
             this.label20.TabIndex = 7;
             this.label20.Text = "Desde";
             // 
@@ -498,7 +501,7 @@
             // 
             this.gpbBogota.BackColor = System.Drawing.Color.White;
             this.gpbBogota.Controls.Add(this.label42);
-            this.gpbBogota.Controls.Add(this.button1);
+            this.gpbBogota.Controls.Add(this.btnBogota);
             this.gpbBogota.Controls.Add(this.label27);
             this.gpbBogota.Controls.Add(this.label13);
             this.gpbBogota.Controls.Add(this.pictureBox3);
@@ -516,21 +519,22 @@
             this.label42.Font = new System.Drawing.Font("Georgia", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label42.Location = new System.Drawing.Point(109, 306);
             this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(206, 20);
+            this.label42.Size = new System.Drawing.Size(171, 17);
             this.label42.TabIndex = 36;
             this.label42.Text = "Sencillo, Clase Económica";
             // 
-            // button1
+            // btnBogota
             // 
-            this.button1.BackColor = System.Drawing.Color.DarkMagenta;
-            this.button1.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(18, 338);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(312, 52);
-            this.button1.TabIndex = 30;
-            this.button1.Text = "Reserva ahora";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnBogota.BackColor = System.Drawing.Color.DarkMagenta;
+            this.btnBogota.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBogota.ForeColor = System.Drawing.Color.White;
+            this.btnBogota.Location = new System.Drawing.Point(18, 338);
+            this.btnBogota.Name = "btnBogota";
+            this.btnBogota.Size = new System.Drawing.Size(312, 52);
+            this.btnBogota.TabIndex = 30;
+            this.btnBogota.Text = "Reserva ahora";
+            this.btnBogota.UseVisualStyleBackColor = false;
+            this.btnBogota.Click += new System.EventHandler(this.btnBogota_Click);
             // 
             // label27
             // 
@@ -539,7 +543,7 @@
             this.label27.ForeColor = System.Drawing.Color.MediumOrchid;
             this.label27.Location = new System.Drawing.Point(186, 275);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(144, 31);
+            this.label27.Size = new System.Drawing.Size(120, 26);
             this.label27.TabIndex = 20;
             this.label27.Text = "MXN 2,727";
             // 
@@ -549,7 +553,7 @@
             this.label13.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.Location = new System.Drawing.Point(13, 212);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(282, 27);
+            this.label13.Size = new System.Drawing.Size(229, 23);
             this.label13.TabIndex = 19;
             this.label13.Text = "(MEX) a Bogotá (BOG)";
             // 
@@ -569,7 +573,7 @@
             this.label14.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label14.Location = new System.Drawing.Point(13, 185);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(222, 27);
+            this.label14.Size = new System.Drawing.Size(185, 23);
             this.label14.TabIndex = 18;
             this.label14.Text = "Ciudad de México";
             // 
@@ -579,7 +583,7 @@
             this.label26.Font = new System.Drawing.Font("Georgia", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label26.Location = new System.Drawing.Point(260, 255);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(55, 20);
+            this.label26.Size = new System.Drawing.Size(46, 17);
             this.label26.TabIndex = 13;
             this.label26.Text = "Desde";
             // 
@@ -587,7 +591,7 @@
             // 
             this.gpbWashington.BackColor = System.Drawing.Color.White;
             this.gpbWashington.Controls.Add(this.label41);
-            this.gpbWashington.Controls.Add(this.button4);
+            this.gpbWashington.Controls.Add(this.btnwashington);
             this.gpbWashington.Controls.Add(this.label17);
             this.gpbWashington.Controls.Add(this.label30);
             this.gpbWashington.Controls.Add(this.label11);
@@ -606,21 +610,22 @@
             this.label41.Font = new System.Drawing.Font("Georgia", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label41.Location = new System.Drawing.Point(95, 306);
             this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(206, 20);
+            this.label41.Size = new System.Drawing.Size(171, 17);
             this.label41.TabIndex = 35;
             this.label41.Text = "Sencillo, Clase Económica";
             // 
-            // button4
+            // btnwashington
             // 
-            this.button4.BackColor = System.Drawing.Color.DarkMagenta;
-            this.button4.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.Color.White;
-            this.button4.Location = new System.Drawing.Point(17, 338);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(312, 52);
-            this.button4.TabIndex = 33;
-            this.button4.Text = "Reserva ahora";
-            this.button4.UseVisualStyleBackColor = false;
+            this.btnwashington.BackColor = System.Drawing.Color.DarkMagenta;
+            this.btnwashington.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnwashington.ForeColor = System.Drawing.Color.White;
+            this.btnwashington.Location = new System.Drawing.Point(17, 338);
+            this.btnwashington.Name = "btnwashington";
+            this.btnwashington.Size = new System.Drawing.Size(312, 52);
+            this.btnwashington.TabIndex = 33;
+            this.btnwashington.Text = "Reserva ahora";
+            this.btnwashington.UseVisualStyleBackColor = false;
+            this.btnwashington.Click += new System.EventHandler(this.btnwashington_Click);
             // 
             // label17
             // 
@@ -628,7 +633,7 @@
             this.label17.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.Location = new System.Drawing.Point(16, 239);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(84, 27);
+            this.label17.Size = new System.Drawing.Size(70, 23);
             this.label17.TabIndex = 11;
             this.label17.Text = "(DCA)";
             // 
@@ -639,7 +644,7 @@
             this.label30.ForeColor = System.Drawing.Color.MediumOrchid;
             this.label30.Location = new System.Drawing.Point(171, 274);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(158, 31);
+            this.label30.Size = new System.Drawing.Size(132, 26);
             this.label30.TabIndex = 23;
             this.label30.Text = "MXN 15,425";
             // 
@@ -649,7 +654,7 @@
             this.label11.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.Location = new System.Drawing.Point(16, 212);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(263, 27);
+            this.label11.Size = new System.Drawing.Size(214, 23);
             this.label11.TabIndex = 17;
             this.label11.Text = "(MEX) a Washington";
             // 
@@ -659,7 +664,7 @@
             this.label25.Font = new System.Drawing.Font("Georgia", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label25.Location = new System.Drawing.Point(246, 255);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(55, 20);
+            this.label25.Size = new System.Drawing.Size(46, 17);
             this.label25.TabIndex = 12;
             this.label25.Text = "Desde";
             // 
@@ -679,7 +684,7 @@
             this.label12.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(16, 185);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(222, 27);
+            this.label12.Size = new System.Drawing.Size(185, 23);
             this.label12.TabIndex = 16;
             this.label12.Text = "Ciudad de México";
             // 
@@ -687,7 +692,7 @@
             // 
             this.gpbNuevaYork.BackColor = System.Drawing.Color.White;
             this.gpbNuevaYork.Controls.Add(this.label39);
-            this.gpbNuevaYork.Controls.Add(this.button6);
+            this.gpbNuevaYork.Controls.Add(this.btnNuevaYork);
             this.gpbNuevaYork.Controls.Add(this.label36);
             this.gpbNuevaYork.Controls.Add(this.label28);
             this.gpbNuevaYork.Controls.Add(this.label9);
@@ -706,21 +711,22 @@
             this.label39.Font = new System.Drawing.Font("Georgia", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label39.Location = new System.Drawing.Point(115, 306);
             this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(206, 20);
+            this.label39.Size = new System.Drawing.Size(171, 17);
             this.label39.TabIndex = 33;
             this.label39.Text = "Sencillo, Clase Económica";
             // 
-            // button6
+            // btnNuevaYork
             // 
-            this.button6.BackColor = System.Drawing.Color.DarkMagenta;
-            this.button6.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.ForeColor = System.Drawing.Color.White;
-            this.button6.Location = new System.Drawing.Point(20, 338);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(312, 52);
-            this.button6.TabIndex = 35;
-            this.button6.Text = "Reserva ahora";
-            this.button6.UseVisualStyleBackColor = false;
+            this.btnNuevaYork.BackColor = System.Drawing.Color.DarkMagenta;
+            this.btnNuevaYork.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNuevaYork.ForeColor = System.Drawing.Color.White;
+            this.btnNuevaYork.Location = new System.Drawing.Point(20, 338);
+            this.btnNuevaYork.Name = "btnNuevaYork";
+            this.btnNuevaYork.Size = new System.Drawing.Size(312, 52);
+            this.btnNuevaYork.TabIndex = 35;
+            this.btnNuevaYork.Text = "Reserva ahora";
+            this.btnNuevaYork.UseVisualStyleBackColor = false;
+            this.btnNuevaYork.Click += new System.EventHandler(this.btnNuevaYork_Click);
             // 
             // label36
             // 
@@ -729,7 +735,7 @@
             this.label36.ForeColor = System.Drawing.Color.MediumOrchid;
             this.label36.Location = new System.Drawing.Point(183, 275);
             this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(158, 31);
+            this.label36.Size = new System.Drawing.Size(132, 26);
             this.label36.TabIndex = 24;
             this.label36.Text = "MXN 15,425";
             // 
@@ -739,7 +745,7 @@
             this.label28.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label28.Location = new System.Drawing.Point(15, 239);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(80, 27);
+            this.label28.Size = new System.Drawing.Size(66, 23);
             this.label28.TabIndex = 24;
             this.label28.Text = "(JFK)";
             // 
@@ -749,7 +755,7 @@
             this.label9.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(15, 212);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(258, 27);
+            this.label9.Size = new System.Drawing.Size(210, 23);
             this.label9.TabIndex = 15;
             this.label9.Text = "(MEX) a Nueva York";
             // 
@@ -759,7 +765,7 @@
             this.label22.Font = new System.Drawing.Font("Georgia", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label22.Location = new System.Drawing.Point(257, 255);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(55, 20);
+            this.label22.Size = new System.Drawing.Size(46, 17);
             this.label22.TabIndex = 9;
             this.label22.Text = "Desde";
             // 
@@ -769,7 +775,7 @@
             this.label10.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(19, 185);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(222, 27);
+            this.label10.Size = new System.Drawing.Size(185, 23);
             this.label10.TabIndex = 14;
             this.label10.Text = "Ciudad de México";
             // 
@@ -786,7 +792,7 @@
             // gpbSanFrancisco
             // 
             this.gpbSanFrancisco.BackColor = System.Drawing.Color.White;
-            this.gpbSanFrancisco.Controls.Add(this.button3);
+            this.gpbSanFrancisco.Controls.Add(this.btnSanFrancisco);
             this.gpbSanFrancisco.Controls.Add(this.label38);
             this.gpbSanFrancisco.Controls.Add(this.label21);
             this.gpbSanFrancisco.Controls.Add(this.label31);
@@ -800,17 +806,18 @@
             this.gpbSanFrancisco.TabIndex = 2;
             this.gpbSanFrancisco.TabStop = false;
             // 
-            // button3
+            // btnSanFrancisco
             // 
-            this.button3.BackColor = System.Drawing.Color.DarkMagenta;
-            this.button3.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(21, 338);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(312, 52);
-            this.button3.TabIndex = 32;
-            this.button3.Text = "Reserva ahora";
-            this.button3.UseVisualStyleBackColor = false;
+            this.btnSanFrancisco.BackColor = System.Drawing.Color.DarkMagenta;
+            this.btnSanFrancisco.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSanFrancisco.ForeColor = System.Drawing.Color.White;
+            this.btnSanFrancisco.Location = new System.Drawing.Point(21, 338);
+            this.btnSanFrancisco.Name = "btnSanFrancisco";
+            this.btnSanFrancisco.Size = new System.Drawing.Size(312, 52);
+            this.btnSanFrancisco.TabIndex = 32;
+            this.btnSanFrancisco.Text = "Reserva ahora";
+            this.btnSanFrancisco.UseVisualStyleBackColor = false;
+            this.btnSanFrancisco.Click += new System.EventHandler(this.btnSanFrancisco_Click);
             // 
             // label38
             // 
@@ -818,7 +825,7 @@
             this.label38.Font = new System.Drawing.Font("Georgia", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label38.Location = new System.Drawing.Point(108, 306);
             this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(206, 20);
+            this.label38.Size = new System.Drawing.Size(171, 17);
             this.label38.TabIndex = 32;
             this.label38.Text = "Sencillo, Clase Económica";
             // 
@@ -828,7 +835,7 @@
             this.label21.Font = new System.Drawing.Font("Georgia", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label21.Location = new System.Drawing.Point(259, 255);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(55, 20);
+            this.label21.Size = new System.Drawing.Size(46, 17);
             this.label21.TabIndex = 8;
             this.label21.Text = "Desde";
             // 
@@ -839,7 +846,7 @@
             this.label31.ForeColor = System.Drawing.Color.MediumOrchid;
             this.label31.Location = new System.Drawing.Point(197, 275);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(144, 31);
+            this.label31.Size = new System.Drawing.Size(120, 26);
             this.label31.TabIndex = 24;
             this.label31.Text = "MXN 9,670";
             // 
@@ -849,7 +856,7 @@
             this.label18.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.Location = new System.Drawing.Point(16, 239);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(87, 27);
+            this.label18.Size = new System.Drawing.Size(72, 23);
             this.label18.TabIndex = 12;
             this.label18.Text = " (SFO)";
             // 
@@ -859,7 +866,7 @@
             this.label7.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(20, 212);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(285, 27);
+            this.label7.Size = new System.Drawing.Size(232, 23);
             this.label7.TabIndex = 13;
             this.label7.Text = "(MEX) a San Francisco";
             // 
@@ -879,7 +886,7 @@
             this.label8.Font = new System.Drawing.Font("Georgia", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(20, 185);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(222, 27);
+            this.label8.Size = new System.Drawing.Size(185, 23);
             this.label8.TabIndex = 12;
             this.label8.Text = "Ciudad de México";
             // 
@@ -981,14 +988,14 @@
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label36;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnPuertoVallasta;
+        private System.Windows.Forms.Button btnBogota;
         private System.Windows.Forms.Button btnCancun;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btnNuevaYork;
+        private System.Windows.Forms.Button btnLosCabos;
+        private System.Windows.Forms.Button btnSanFrancisco;
+        private System.Windows.Forms.Button btnwashington;
+        private System.Windows.Forms.Button btnHermosillo;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Label label43;
         private System.Windows.Forms.Label label40;
