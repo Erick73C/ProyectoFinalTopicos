@@ -93,7 +93,7 @@
             // 
             this.cmbDestino.FormattingEnabled = true;
             this.cmbDestino.Location = new System.Drawing.Point(162, 31);
-            this.cmbDestino.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbDestino.Margin = new System.Windows.Forms.Padding(2);
             this.cmbDestino.Name = "cmbDestino";
             this.cmbDestino.Size = new System.Drawing.Size(211, 31);
             this.cmbDestino.TabIndex = 1;

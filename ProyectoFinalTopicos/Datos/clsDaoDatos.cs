@@ -338,6 +338,95 @@ namespace ProyectoFinalTopicos.Datos
             }
         }
 
+        /// <summary>
+        /// Obtiene el número de vuelo asociado a un destino específico.
+        /// </summary>
+        /// <param name="destino">Nombre del aeropuerto destino a buscar.</param>
+        /// <returns>
+        /// El número de vuelo como cadena si se encuentra un vuelo al destino especificado;
+        /// de lo contrario, retorna una cadena vacía.
+        /// </returns>
+        public string ObtenerNumeroVueloPorDestino(string destino)
+        {
+            MySqlConnection conn = null;
+            MySqlCommand cmd = null;
+            MySqlDataReader reader = null;
+
+            try
+            {
+                conn = new MySqlConnection(conexion);
+                conn.Open();
+
+                string query = "SELECT NumeroVuelo FROM Vuelos WHERE AeropuertoDestino = @Destino LIMIT 1";
+                cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@Destino", destino);
+
+                reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    return reader["NumeroVuelo"].ToString();
+                }
+
+                return string.Empty;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al obtener el número de vuelo por destino.", ex);
+            }
+            finally
+            {
+                reader?.Close();
+                cmd?.Dispose();
+                conn?.Close();
+                conn?.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// Obtiene el precio base de un vuelo según el destino especificado.
+        /// </summary>
+        /// <param name="destino">Nombre del aeropuerto destino para buscar el precio.</param>
+        /// <returns>
+        /// El precio base como <see cref="decimal"/> si se encuentra un vuelo al destino;
+        /// de lo contrario, retorna 0.
+        /// </returns>
+        public decimal ObtenerPrecioBasePorDestino(string destino)
+        {
+            MySqlConnection conn = null;
+            MySqlCommand cmd = null;
+            MySqlDataReader reader = null;
+
+            try
+            {
+                conn = new MySqlConnection(conexion);
+                conn.Open();
+
+                string query = "SELECT PrecioBase FROM Vuelos WHERE AeropuertoDestino LIKE CONCAT('%', @Destino, '%') LIMIT 1";
+                cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@Destino", destino);
+
+                reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    return Convert.ToDecimal(reader["PrecioBase"]);
+                }
+
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al obtener el precio base del vuelo.", ex);
+            }
+            finally
+            {
+                reader?.Close();
+                cmd?.Dispose();
+                conn?.Close();
+                conn?.Dispose();
+            }
+        }
 
     }
 }

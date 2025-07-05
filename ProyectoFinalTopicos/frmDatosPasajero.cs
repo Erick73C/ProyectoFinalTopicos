@@ -26,6 +26,12 @@ namespace ProyectoFinalTopicos
         public string NumeroAsiento { get; set; }
         public decimal CostoPorMaleta { get; private set; }
         public decimal TotalMaletas { get; private set; }
+        private decimal precioBaseVuelo;
+        public bool EsMenor { get; set; }
+        public decimal Descuento { get; set; }
+        public decimal PrecioBase { get; set; }
+        private bool esMenor;
+
         #endregion
 
         //private string asiento;
@@ -37,7 +43,7 @@ namespace ProyectoFinalTopicos
         /// <param name="numeroAsiento"></param>
         /// <param name="costoPorMaletA"></param>
         /// 
-        public frmDatosPasajero(string numeroAsiento, decimal costoPorMaletA, int numeroPasajero)
+        public frmDatosPasajero(string numeroAsiento, decimal costoPorMaletA, int numeroPasajero, string destinoSeleccionado, bool esMenor, decimal precioBaseVuelo)
         {
             InitializeComponent();
             NumeroAsiento = numeroAsiento;
@@ -49,11 +55,35 @@ namespace ProyectoFinalTopicos
             lblCostoMaletas.Text = $"Costo total maletas: $0.00";
 
             CargarDestinos();
+            cbxDestino.SelectedItem = destinoSeleccionado;
+
+            cbxOrigen.Enabled = false;
+            cbxDestino.Enabled = false;
 
             // Configura el NumericUpDown para maletas
             numericNumeroMaletas.Minimum = 0;
             numericNumeroMaletas.Maximum = 5; // Límite de 5 maletas
             numericNumeroMaletas.ValueChanged += numericNumeroMaletas_ValueChanged;
+
+            if (esMenor)
+            {
+                decimal descuento = precioBaseVuelo * 0.30m; // 30% de descuento
+                
+                PrecioBase = precioBaseVuelo - descuento;
+
+                lblMenor.Visible = true;
+                lblDescuentoMenor.Visible = true;
+                lblDescuentoMenor.Text = $"Descuento aplicado: ${descuento:0.00}";
+            }
+            else
+            {
+                lblMenor.Visible = false;
+                PrecioBase = precioBaseVuelo;
+                lblDescuentoMenor.Visible = false;
+                Descuento = 0;
+            }
+
+            
         }
         /// <summary>
         /// Al carga el formulario los txtbox de origen y destino se desabilitan 
@@ -137,7 +167,7 @@ namespace ProyectoFinalTopicos
         };
         #endregion
 
-        #region Logica de eventos de elementos de formulario
+        #region Logica de eventos de elementos de formulario y botones
         /// <summary>
         /// Cierra el formulario 
         /// </summary>
@@ -167,6 +197,8 @@ namespace ProyectoFinalTopicos
             Origen = cbxOrigen.Text;
             Destino = cbxDestino.Text;
 
+            PrecioBase = precioBaseVuelo;
+            Descuento = esMenor ? precioBaseVuelo * 0.20m : 0;
             DialogResult = DialogResult.OK;
             Close();
         }

@@ -37,7 +37,7 @@ namespace ProyectoFinalTopicos
         //Guardar el total de pasajeros esperados y la cantidad de menores
         private int totalPasajerosEsperados;
         private int cantidadMenores;
-
+        private string destinoSeleccionado;
 
         #endregion
 
@@ -50,12 +50,13 @@ namespace ProyectoFinalTopicos
         /// </summary>
         /// <param name="totalPasajeros"></param>
         /// <param name="menores"></param>
-        public frmVentaDeVoletos(int totalPasajeros, int menores)
+        public frmVentaDeVoletos(int totalPasajeros, int cantidadMenores, string destino)
         {
             InitializeComponent();
 
-            totalPasajerosEsperados = totalPasajeros;
-            cantidadMenores = menores;
+            this.totalPasajerosEsperados = totalPasajeros;
+            this.cantidadMenores = cantidadMenores;
+            this.destinoSeleccionado = destino;
 
             lstPasajeros.DataSource = pasajeros;
             lstPasajeros.DisplayMember = "Descripcion";
@@ -98,6 +99,10 @@ namespace ProyectoFinalTopicos
             numAsientos.Value = totalPasajerosEsperados;
             numAsientos.Enabled = false;
             lblContadorPasageros.Text = $"0/{totalPasajerosEsperados}";
+
+            
+            string numeroVuelo = dao.ObtenerNumeroVueloPorDestino(destinoSeleccionado);
+            lblNombreVuelo.Text = numeroVuelo;
         }
 
         /// <summary>
@@ -105,24 +110,16 @@ namespace ProyectoFinalTopicos
         /// </summary>
         private void ActualizarTotal()
         {
-            decimal totalAsientos = pasajeros.Sum(p => p.PrecioBase);
             decimal totalMaletas = pasajeros.Sum(p => p.PrecioMaletas);
-            decimal totalGeneral = totalAsientos + totalMaletas;
+            decimal totalAsientos = pasajeros.Sum(p => p.PrecioBase); // Precio del asiento (fijo)
+            decimal totalVuelo = pasajeros.Sum(p => dao.ObtenerPrecioBasePorDestino(p.Destino)); // Precio base del vuelo
+            decimal totalDescuentos = pasajeros.Sum(p => p.Descuento); // Sumar descuentos si los hay
 
-            //Aqui modificas el texto de los labels para mostrar los totales
-            lblCostoMaleta.Text = $"Total por maletas: ${totalMaletas.ToString("0.00")}";
+            decimal totalGeneral = totalMaletas + totalAsientos + totalVuelo - totalDescuentos;
 
-            lnlPrecio.Text = $"Total: ${totalGeneral.ToString("0.00")}\n";
-            /*
-                       $"  (Asientos: ${totalAsientos.ToString("0.00")}\n" +
-                       $"  Maletas: ${totalMaletas.ToString("0.00")})";
-            */
-
-            lblContadorPasageros.Text = $"{pasajeros.Count}/{numAsientos.Value}";
-
-            // Actualizar estado del botón
-            btntiket.Enabled = pasajeros.Count == (int)numAsientos.Value;
-
+            lblCostoMaleta.Text = $"Total por maletas: ${totalMaletas:0.00}";
+            lblPrecioVuelo.Text = $"Total vuelo: ${totalVuelo:0.00}";
+            lnlPrecio.Text = $"Total: ${totalGeneral:0.00}";
         }
 
         /// <summary>
@@ -170,9 +167,6 @@ namespace ProyectoFinalTopicos
             pasajeroReasignando = null;
             lblInstruccion.Text = "Seleccione pasajeros o asientos";
             lblInstruccion.ForeColor = SystemColors.ControlText;
-
-            // Restaurar controles
-            numAsientos.Enabled = true;
         }
 
         /*
@@ -456,54 +450,69 @@ namespace ProyectoFinalTopicos
                 return;
             }
 
+
+            int menoresActuales = pasajeros.Count(p => p.EsMenor);
+            bool esMenor = menoresActuales < cantidadMenores;
+            decimal precioVuelo = dao.ObtenerPrecioBasePorDestino(destinoSeleccionado);
+
             // Mostrar formulario de datos del pasajero
-            using (frmDatosPasajero formDatos = new frmDatosPasajero(numeroAsiento, PRECIO_MALETA, pasajeros.Count + 1))
+            using (frmDatosPasajero formDatos = new frmDatosPasajero(
+                     numeroAsiento,
+                     PRECIO_MALETA,
+                     pasajeros.Count + 1,
+                     destinoSeleccionado,
+                     esMenor,
+                     precioVuelo))
+
             {
-                formDatos.NumeroAsiento = numeroAsiento;
-
-                if (formDatos.ShowDialog() == DialogResult.OK)
                 {
-                    // Actualizar apariencia de la celda
-                    celda.Style.BackColor = Color.FromArgb(60, 179, 113);
-                    celda.Style.ForeColor = Color.White;
-                    celda.Value = $"{numeroAsiento}\n{formDatos.NombrePasajero} {formDatos.ApellidoPasajero}";
 
-                    // Agregar a lista de asientos ocupados
-                    asientosOcupados.Add(numeroAsiento);
+                    formDatos.NumeroAsiento = numeroAsiento;
 
-                    bool esMenor = pasajeros.Count(p => p.EsMenor) < cantidadMenores;
-                    // Crear nuevo pasajero
-                    var nuevoPasajero = new Pasajero
+                    if (formDatos.ShowDialog() == DialogResult.OK)
                     {
-                        Nombre = formDatos.NombrePasajero,
-                        Apellido = formDatos.ApellidoPasajero,
-                        EsMenor = esMenor,
-                        Asiento = numeroAsiento,
-                        PrecioBase = PRECIO_ASIENTO,
-                        PrecioMaletas = formDatos.TotalMaletas,
-                        Telefono = formDatos.Telefono,
-                        NumeroMaletas = formDatos.NumeroMaletas,
-                        NumeroPasaporte = formDatos.NumeroPasaporte,
-                        Origen = formDatos.Origen,
-                        Destino = formDatos.Destino
-                    };
+                        // Actualizar apariencia de la celda
+                        celda.Style.BackColor = Color.FromArgb(60, 179, 113);
+                        celda.Style.ForeColor = Color.White;
+                        celda.Value = $"{numeroAsiento}\n{formDatos.NombrePasajero} {formDatos.ApellidoPasajero}";
 
-                    // Actualizar contadores y listas
-                    asientosSeleccionados++;
-                    pasajeros.Add(nuevoPasajero);
+                        // Agregar a lista de asientos ocupados
+                        asientosOcupados.Add(numeroAsiento);
 
-                    // Forzar actualización de los controles
-                    lstPasajeros.DataSource = null;
-                    lstPasajeros.DataSource = pasajeros;
-                    lstPasajeros.DisplayMember = "Descripcion";
-                    lstPasajeros.ValueMember = "Asiento";
-                    lstPasajeros.Refresh();
 
-                    DibujarMapaAsientos();
-                    ActualizarTotal();
+                        // Crear nuevo pasajero
+                        var nuevoPasajero = new Pasajero
+                        {
+                            Nombre = formDatos.NombrePasajero,
+                            Apellido = formDatos.ApellidoPasajero,
+                            EsMenor = esMenor,
+                            Asiento = numeroAsiento,
+                            PrecioBase = PRECIO_ASIENTO,
+                            PrecioMaletas = formDatos.TotalMaletas,
+                            Telefono = formDatos.Telefono,
+                            NumeroMaletas = formDatos.NumeroMaletas,
+                            NumeroPasaporte = formDatos.NumeroPasaporte,
+                            Origen = formDatos.Origen,
+                            Destino = formDatos.Destino
+                        };
 
-                    // Habilitar botón de ticket si se completaron todos los asientos
-                    btntiket.Enabled = (asientosSeleccionados == asientosASeleccionar);
+                        // Actualizar contadores y listas
+                        asientosSeleccionados++;
+                        pasajeros.Add(nuevoPasajero);
+
+                        // Forzar actualización de los controles
+                        lstPasajeros.DataSource = null;
+                        lstPasajeros.DataSource = pasajeros;
+                        lstPasajeros.DisplayMember = "Descripcion";
+                        lstPasajeros.ValueMember = "Asiento";
+                        lstPasajeros.Refresh();
+
+                        DibujarMapaAsientos();
+                        ActualizarTotal();
+
+                        // Habilitar botón de ticket si se completaron todos los asientos
+                        btntiket.Enabled = (asientosSeleccionados == asientosASeleccionar);
+                    }
                 }
             }
         }
@@ -541,6 +550,13 @@ namespace ProyectoFinalTopicos
         private void btnEliminarPasajero_Click(object sender, EventArgs e)
         {
             if (pasajeroSeleccionado == null) return;
+
+            if (!pasajeroSeleccionado.EsMenor && pasajeros.Any(p => p.EsMenor) && pasajeros.Count == 2)
+            {
+                MessageBox.Show("No puedes eliminar al adulto si hay un menor en la lista. Un menor no puede viajar solo.",
+                                "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             var confirmacion = MessageBox.Show(
                 $"¿Eliminar a {pasajeroSeleccionado.NombreCompleto} del asiento {pasajeroSeleccionado.Asiento}?",

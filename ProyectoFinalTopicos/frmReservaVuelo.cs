@@ -59,6 +59,10 @@ namespace ReservaVuelo
                 if (index >= 0)
                     cmbDestino.SelectedIndex = index;
             }
+            nudMenores.Minimum = 0;
+
+            nudAdultos.Value = 1; // Establece el valor por defecto de adultos a 1
+            nudMenores.Value = 0; // Establece el valor por defecto de menores a 0
         }
 
         /// <summary>
@@ -127,7 +131,9 @@ namespace ReservaVuelo
                 return;
             }
 
-            var frmVenta = new frmVentaDeVoletos(totalPasajeros, (int)nudMenores.Value);
+            string destino = cmbDestino.SelectedItem?.ToString();
+
+            var frmVenta = new frmVentaDeVoletos(totalPasajeros, (int)nudMenores.Value, destino);
             frmVenta.ShowDialog();
         }
 

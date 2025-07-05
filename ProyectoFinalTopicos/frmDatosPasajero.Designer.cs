@@ -55,6 +55,7 @@
             this.errApellidos = new System.Windows.Forms.ErrorProvider(this.components);
             this.errNombre = new System.Windows.Forms.ErrorProvider(this.components);
             this.lblMenor = new System.Windows.Forms.Label();
+            this.lblDescuentoMenor = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericNumeroMaletas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errNoPasaporte)).BeginInit();
@@ -75,7 +76,7 @@
             // 
             this.cbxOrigen.FormattingEnabled = true;
             this.cbxOrigen.Items.AddRange(new object[] {
-            "Leon (Mexico)"});
+            "Ciudad de México (MEX)"});
             this.cbxOrigen.Location = new System.Drawing.Point(99, 98);
             this.cbxOrigen.Name = "cbxOrigen";
             this.cbxOrigen.Size = new System.Drawing.Size(239, 21);
@@ -83,6 +84,7 @@
             // 
             // panel1
             // 
+            this.panel1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel1.Controls.Add(this.lblMenor);
             this.panel1.Controls.Add(this.lblNombrePasagero);
             this.panel1.Controls.Add(this.lblAsiento);
@@ -131,7 +133,7 @@
             // 
             this.lblCostoMaletas.AutoSize = true;
             this.lblCostoMaletas.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCostoMaletas.Location = new System.Drawing.Point(513, 319);
+            this.lblCostoMaletas.Location = new System.Drawing.Point(509, 323);
             this.lblCostoMaletas.Name = "lblCostoMaletas";
             this.lblCostoMaletas.Size = new System.Drawing.Size(72, 20);
             this.lblCostoMaletas.TabIndex = 15;
@@ -261,6 +263,7 @@
             // 
             // btnAceptar
             // 
+            this.btnAceptar.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnAceptar.Location = new System.Drawing.Point(405, 405);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(176, 42);
@@ -271,6 +274,7 @@
             // 
             // btnCancelar
             // 
+            this.btnCancelar.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnCancelar.Location = new System.Drawing.Point(612, 405);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(176, 42);
@@ -304,12 +308,26 @@
             this.lblMenor.Size = new System.Drawing.Size(84, 24);
             this.lblMenor.TabIndex = 19;
             this.lblMenor.Text = "(Menor)";
+            this.lblMenor.Visible = false;
+            // 
+            // lblDescuentoMenor
+            // 
+            this.lblDescuentoMenor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblDescuentoMenor.AutoSize = true;
+            this.lblDescuentoMenor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDescuentoMenor.Location = new System.Drawing.Point(29, 427);
+            this.lblDescuentoMenor.Name = "lblDescuentoMenor";
+            this.lblDescuentoMenor.Size = new System.Drawing.Size(72, 20);
+            this.lblDescuentoMenor.TabIndex = 20;
+            this.lblDescuentoMenor.Text = "_______";
+            this.lblDescuentoMenor.Visible = false;
             // 
             // frmDatosPasajero
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 475);
+            this.Controls.Add(this.lblDescuentoMenor);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.panel1);
@@ -324,6 +342,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.errApellidos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errNombre)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -355,5 +374,6 @@
         private System.Windows.Forms.ErrorProvider errApellidos;
         private System.Windows.Forms.ErrorProvider errNombre;
         private System.Windows.Forms.Label lblMenor;
+        private System.Windows.Forms.Label lblDescuentoMenor;
     }
 }
