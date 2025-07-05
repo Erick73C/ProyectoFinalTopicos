@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ProyectoFinalTopicos.Datos
 {
+    /// <summary>
+    /// Con esta clase se define la estructura de un pasajero.
+    /// </summary>
     public class Pasajero
     {
         public string NumeroPasajero { get; set; }

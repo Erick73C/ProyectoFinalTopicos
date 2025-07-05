@@ -28,6 +28,10 @@ namespace ProyectoFinalTopicos
             reserva.ShowDialog();
         }
 
+        #region logica de botones
+
+        //Se definen los eventos de los botones para abrir el formulario de reserva con el destino correspondiente.
+        //Dependiendo del botón que se presione, se abrirá el formulario con el destino específico.
         private void btnCancun_Click(object sender, EventArgs e)
         {
             AbrirFormularioReserva("Cancún (CUN)");
@@ -68,5 +72,8 @@ namespace ProyectoFinalTopicos
         {
             AbrirFormularioReserva("San Francisco (SFO)");
         }
+
+        #endregion
+
     }
 }

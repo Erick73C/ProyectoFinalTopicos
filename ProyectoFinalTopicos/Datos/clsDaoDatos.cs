@@ -19,6 +19,15 @@ namespace ProyectoFinalTopicos.Datos
            //La base de datos se llama "DBAeropuerto" 
            "server = localhost;  database = dbaeropuerto; uid = root; pwd = ;";
 
+        /// <summary>
+        /// Inserta un nuevo boleto en la base de datos asociado a un pasajero específico.
+        /// </summary>
+        /// <param name="boleto">Objeto Boleto que contiene la información del boleto a insertar.</param>
+        /// <param name="idPasajero">ID del pasajero al que se asociará el boleto.</param>
+        /// <returns>
+        ///   <c>true</c> si la inserción fue exitosa; 
+        ///   de lo contrario, lanza una excepción ApplicationException con el error ocurrido.
+        /// </returns>
         public bool InsertarBoleto(Boleto boleto, int idPasajero)
         {
             MySqlConnection conn = null;
@@ -54,6 +63,14 @@ namespace ProyectoFinalTopicos.Datos
             }
         }
 
+        /// <summary>
+        /// Obtiene todos los boletos asociados a un número de vuelo específico, incluyendo la información de los pasajeros.
+        /// </summary>
+        /// <param name="numeroVuelo">Número de vuelo para filtrar la búsqueda de boletos.</param>
+        /// <returns>
+        /// Una lista de objetos <see cref="Boleto"/> que contiene todos los boletos encontrados para el vuelo especificado,
+        /// cada uno con su información completa y los datos del pasajero asociado.
+        /// </returns>
         public List<Boleto> ObtenerBoletosPorVuelo(string numeroVuelo)
         {
             List<Boleto> boletos = new List<Boleto>();
@@ -117,6 +134,14 @@ namespace ProyectoFinalTopicos.Datos
             }
         }
 
+        /// <summary>
+        /// Obtiene una lista de los números de asiento que ya están ocupados en un vuelo específico.
+        /// </summary>
+        /// <param name="numeroVuelo">Número de vuelo para el cual se consultarán los asientos ocupados.</param>
+        /// <returns>
+        /// Lista de strings que contiene los números de asiento ocupados en el vuelo especificado.
+        /// La lista estará vacía si no hay asientos ocupados o si el vuelo no existe.
+        /// </returns>
         public List<string> ObtenerAsientosOcupados(string numeroVuelo)
         {
             List<string> asientos = new List<string>();
@@ -156,6 +181,16 @@ namespace ProyectoFinalTopicos.Datos
 
         //Se actualizo el metodo de insertar pasagero para saber si es menor o no. 
 
+        /// <summary>
+        /// Inserta un nuevo pasajero en la base de datos y retorna el ID generado.
+        /// </summary>
+        /// <param name="pasajero">Objeto <see cref="Pasajero"/> que contiene la información del pasajero a insertar.</param>
+        /// <param name="idInsertado">Parámetro de salida que contendrá el ID autogenerado del pasajero insertado.
+        /// Será -1 si ocurre un error durante la inserción.</param>
+        /// <returns>
+        /// <c>true</c> si la inserción fue exitosa; 
+        /// de lo contrario, lanza una <see cref="ApplicationException"/> con el error ocurrido.
+        /// </returns>
         public bool InsertarPasajero(Pasajero pasajero, out int idInsertado)
         {
             MySqlConnection conn = null;
@@ -165,8 +200,8 @@ namespace ProyectoFinalTopicos.Datos
             {
                 conn = new MySqlConnection(conexion);
                 conn.Open();
-                string query = "INSERT INTO Pasajeros (Nombre, Apellido, Telefono, Asiento, PrecioBase, NumeroMaletas, NumeroPasaporte, PrecioMaletas, Origen, Destino) " +
-                               "VALUES (@Nombre, @Apellido, @Telefono, @Asiento, @PrecioBase, @NumeroMaletas, @NumeroPasaporte, @PrecioMaletas, @Origen, @Destino); " +
+                string query = "INSERT INTO Pasajeros (Nombre, Apellido, Telefono, Asiento, PrecioBase, NumeroMaletas, NumeroPasaporte, PrecioMaletas, Origen, Destino, EsMenor, Descuento) " +
+                               "VALUES (@Nombre, @Apellido, @Telefono, @Asiento, @PrecioBase, @NumeroMaletas, @NumeroPasaporte, @PrecioMaletas, @Origen, @Destino, @EsMenor, @Descuento); " +
                                "SELECT LAST_INSERT_ID();";
 
                 cmd = new MySqlCommand(query, conn);
@@ -180,6 +215,8 @@ namespace ProyectoFinalTopicos.Datos
                 cmd.Parameters.AddWithValue("@PrecioMaletas", pasajero.PrecioMaletas);
                 cmd.Parameters.AddWithValue("@Origen", pasajero.Origen);
                 cmd.Parameters.AddWithValue("@Destino", pasajero.Destino);
+                cmd.Parameters.AddWithValue("@EsMenor", pasajero.EsMenor);
+                cmd.Parameters.AddWithValue("@Descuento", pasajero.Descuento);
 
                 idInsertado = Convert.ToInt32(cmd.ExecuteScalar());
                 return true;
@@ -187,10 +224,6 @@ namespace ProyectoFinalTopicos.Datos
             catch (MySqlException ex)
             {
                 throw new ApplicationException("Error al insertar el pasajero en la base de datos.", ex);
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException("Ocurrió un error inesperado al insertar el pasajero.", ex);
             }
             finally
             {
@@ -200,6 +233,14 @@ namespace ProyectoFinalTopicos.Datos
             }
         }
 
+        /// <summary>
+        /// Inserta un nuevo vuelo en la base de datos solo si no existe previamente un vuelo con el mismo número.
+        /// </summary>
+        /// <param name="vuelo">Objeto <see cref="Vuelo"/> que contiene la información del vuelo a insertar.</param>
+        /// <returns>
+        /// <c>true</c> si el vuelo fue insertado correctamente o si ya existía en la base de datos;
+        /// En caso de error, lanza una <see cref="ApplicationException"/>.
+        /// </returns>
         public bool InsertarVueloSiNoExiste(Vuelo vuelo)
         {
             MySqlConnection conn = null;
@@ -243,7 +284,14 @@ namespace ProyectoFinalTopicos.Datos
             }
         }
 
-
+        /// <summary>
+        /// Inserta un nuevo vuelo en la base de datos solo si no existe previamente un vuelo con el mismo número.
+        /// </summary>
+        /// <param name="vuelo">Objeto <see cref="Vuelo"/> que contiene la información del vuelo a insertar.</param>
+        /// <returns>
+        /// <c>true</c> si el vuelo fue insertado correctamente o si ya existía en la base de datos;
+        /// En caso de error, lanza una <see cref="ApplicationException"/>.
+        /// </returns>
         public Vuelo ObtenerDatosVueloPorDestino(string destino)
         {
             MySqlConnection conn = null;
@@ -289,6 +337,7 @@ namespace ProyectoFinalTopicos.Datos
                 conn?.Dispose();
             }
         }
+
 
     }
 }

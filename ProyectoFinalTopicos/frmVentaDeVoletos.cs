@@ -34,7 +34,7 @@ namespace ProyectoFinalTopicos
         private Pasajero pasajeroSeleccionado = null;
         //Lista de boletos
         private List<Boleto> boletosGuardados = new List<Boleto>();
-
+        //Guardar el total de pasajeros esperados y la cantidad de menores
         private int totalPasajerosEsperados;
         private int cantidadMenores;
 
@@ -45,6 +45,11 @@ namespace ProyectoFinalTopicos
 
         #region Metodos y eventos principales y auxiliares 
 
+        /// <summary>
+        /// Constructor del formulario que inicializa los componentes y configura el estado inicial.
+        /// </summary>
+        /// <param name="totalPasajeros"></param>
+        /// <param name="menores"></param>
         public frmVentaDeVoletos(int totalPasajeros, int menores)
         {
             InitializeComponent();
@@ -80,6 +85,11 @@ namespace ProyectoFinalTopicos
             lnlPrecio.Text = "Total: $0.00";
         }
 
+        /// <summary>
+        /// Carga el formulario y configura los controles iniciales.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void frmVentaDeVoletos_Load(object sender, EventArgs e)
         {
             btntiket.Enabled = false;

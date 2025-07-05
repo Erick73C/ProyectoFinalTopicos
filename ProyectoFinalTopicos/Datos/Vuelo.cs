@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ProyectoFinalTopicos.Datos
 {
+    /// <summary>
+    /// Representa un vuelo en el sistema de reservas de vuelos.
+    /// </summary>
     public class Vuelo
     {
         public string NumeroVuelo { get; set; }

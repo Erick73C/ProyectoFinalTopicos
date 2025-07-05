@@ -1,36 +1,148 @@
-﻿CREATE DATABASE IF NOT EXISTS DBAeropuerto;
-USE DBAeropuerto;
+﻿-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 05-07-2025 a las 19:58:14
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.0.30
 
-CREATE TABLE Pasajeros (
-    NumeroPasajero INT AUTO_INCREMENT PRIMARY KEY,
-    Nombre VARCHAR(100) NOT NULL,
-    Apellido VARCHAR(100) NOT NULL,
-    Telefono VARCHAR(20),
-    Asiento VARCHAR(10),
-    PrecioBase DECIMAL(10,2),
-    NumeroMaletas INT,
-    NumeroPasaporte VARCHAR(50),
-    PrecioMaletas DECIMAL(10,2),
-    Origen VARCHAR(100),
-    Destino VARCHAR(100)
-);
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
 
-CREATE TABLE Vuelos (
-    NumeroVuelo VARCHAR(20) PRIMARY KEY,
-    AeropuertoOrigen VARCHAR(100),
-    AeropuertoDestino VARCHAR(100),
-    FechaHoraSalida DATETIME,
-    FechaHoraLlegada DATETIME
-);
 
-CREATE TABLE Boletos (
-    NumeroBoleto VARCHAR(100) PRIMARY KEY, -- Actúa como código de barras/QR
-    NumeroPasajero INT,
-    NumeroVuelo VARCHAR(20),
-    NumeroAsiento VARCHAR(10),
-    TieneMaleta BOOLEAN,
-    CheckInRealizado BOOLEAN DEFAULT FALSE,
-    HaAbordado BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (NumeroPasajero) REFERENCES Pasajeros(NumeroPasajero),
-    FOREIGN KEY (NumeroVuelo) REFERENCES Vuelos(NumeroVuelo)
-);
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de datos: `dbaeropuerto`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `boletos`
+--
+
+CREATE TABLE `boletos` (
+  `NumeroBoleto` varchar(100) NOT NULL,
+  `NumeroPasajero` int(11) DEFAULT NULL,
+  `NumeroVuelo` varchar(20) DEFAULT NULL,
+  `NumeroAsiento` varchar(10) DEFAULT NULL,
+  `TieneMaleta` tinyint(1) DEFAULT NULL,
+  `CheckInRealizado` tinyint(1) DEFAULT 0,
+  `HaAbordado` tinyint(1) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `boletos`
+--
+
+INSERT INTO `boletos` (`NumeroBoleto`, `NumeroPasajero`, `NumeroVuelo`, `NumeroAsiento`, `TieneMaleta`, `CheckInRealizado`, `HaAbordado`) VALUES
+('35c12a8614184', 35, 'V123', 'A36', 1, 0, 0),
+('814b47f184f34', 34, 'V123', 'A26', 1, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pasajeros`
+--
+
+CREATE TABLE `pasajeros` (
+  `NumeroPasajero` int(11) NOT NULL,
+  `Nombre` varchar(100) NOT NULL,
+  `Apellido` varchar(100) NOT NULL,
+  `Telefono` varchar(20) DEFAULT NULL,
+  `Asiento` varchar(10) DEFAULT NULL,
+  `PrecioBase` decimal(10,2) DEFAULT NULL,
+  `NumeroMaletas` int(11) DEFAULT NULL,
+  `NumeroPasaporte` varchar(50) DEFAULT NULL,
+  `PrecioMaletas` decimal(10,2) DEFAULT NULL,
+  `Origen` varchar(100) DEFAULT NULL,
+  `Destino` varchar(100) DEFAULT NULL,
+  `EsMenor` tinyint(1) NOT NULL DEFAULT 0,
+  `Descuento` decimal(10,2) DEFAULT 0.00
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `vuelos`
+--
+
+CREATE TABLE `vuelos` (
+  `NumeroVuelo` varchar(20) NOT NULL,
+  `AeropuertoOrigen` varchar(100) DEFAULT NULL,
+  `AeropuertoDestino` varchar(100) DEFAULT NULL,
+  `FechaHoraSalida` datetime DEFAULT NULL,
+  `FechaHoraLlegada` datetime DEFAULT NULL,
+  `PrecioBase` decimal(10,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `vuelos`
+--
+
+INSERT INTO `vuelos` (`NumeroVuelo`, `AeropuertoOrigen`, `AeropuertoDestino`, `FechaHoraSalida`, `FechaHoraLlegada`, `PrecioBase`) VALUES
+('V001', 'Ciudad de México (MEX)', 'Cancún (CUN)', '2025-06-30 19:48:21', '2025-06-30 21:48:21', 299.00),
+('V002', 'Ciudad de México (MEX)', 'Los Cabos (SJD)', '2025-06-30 19:48:21', '2025-06-30 21:48:21', 599.00),
+('V003', 'Ciudad de México (MEX)', 'Puerto Vallarta (PVR)', '2025-06-30 19:48:21', '2025-07-07 21:48:21', 499.00),
+('V004', 'Ciudad de México (MEX)', 'Hermosillo (HMO)', '2025-06-30 19:48:21', '2025-06-30 21:48:21', 449.00),
+('V005', 'Ciudad de México (MEX)', 'Bogotá (BOG)', '2025-07-07 13:48:00', '2025-06-30 23:48:21', 2727.00),
+('V006', 'Ciudad de México (MEX)', 'Washington (DCA)', '2025-06-30 19:48:21', '2025-07-01 00:48:21', 15425.00),
+('V007', 'Ciudad de México (MEX)', 'Nueva York (JFK)', '2025-06-30 19:48:21', '2025-07-01 00:48:21', 15425.00),
+('V008', 'Ciudad de México (MEX)', 'San Francisco (SFO)', '2025-06-30 19:48:21', '2025-07-01 01:48:21', 9670.00),
+('V123', 'Ciudad de México (MEX)', 'Acapulco (ACA)', '2025-07-16 15:10:27', '2025-06-29 19:10:27', 6386.00);
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `boletos`
+--
+ALTER TABLE `boletos`
+  ADD PRIMARY KEY (`NumeroBoleto`),
+  ADD KEY `NumeroPasajero` (`NumeroPasajero`),
+  ADD KEY `NumeroVuelo` (`NumeroVuelo`);
+
+--
+-- Indices de la tabla `pasajeros`
+--
+ALTER TABLE `pasajeros`
+  ADD PRIMARY KEY (`NumeroPasajero`);
+
+--
+-- Indices de la tabla `vuelos`
+--
+ALTER TABLE `vuelos`
+  ADD PRIMARY KEY (`NumeroVuelo`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `pasajeros`
+--
+ALTER TABLE `pasajeros`
+  MODIFY `NumeroPasajero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `boletos`
+--
+ALTER TABLE `boletos`
+  ADD CONSTRAINT `boletos_ibfk_1` FOREIGN KEY (`NumeroPasajero`) REFERENCES `pasajeros` (`NumeroPasajero`),
+  ADD CONSTRAINT `boletos_ibfk_2` FOREIGN KEY (`NumeroVuelo`) REFERENCES `vuelos` (`NumeroVuelo`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace ProyectoFinalTopicos.Datos
 {
+    /// <summary>
+    /// Se encarga de imprimir los boletos de los pasajeros en formato de ticket.
+    /// </summary>
     public class clsImprimirBoleto
     {
         private readonly List<Boleto> boletos;
