@@ -1,4 +1,5 @@
 ﻿using ProyectoFinalTopicos.Datos;
+using ReservaVuelo;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -111,14 +112,12 @@ namespace ProyectoFinalTopicos
         private void ActualizarTotal()
         {
             decimal totalMaletas = pasajeros.Sum(p => p.PrecioMaletas);
-            decimal totalAsientos = pasajeros.Sum(p => p.PrecioBase); // Precio del asiento (fijo)
-            decimal totalVuelo = pasajeros.Sum(p => dao.ObtenerPrecioBasePorDestino(p.Destino)); // Precio base del vuelo
-            decimal totalDescuentos = pasajeros.Sum(p => p.Descuento); // Sumar descuentos si los hay
-
-            decimal totalGeneral = totalMaletas + totalAsientos + totalVuelo - totalDescuentos;
+            decimal totalPasajeros = pasajeros.Sum(p => p.PrecioBase); // Incluye vuelo + asiento
+            decimal totalDescuentos = pasajeros.Sum(p => p.Descuento);
+            decimal totalGeneral = totalMaletas + totalPasajeros - totalDescuentos;
 
             lblCostoMaleta.Text = $"Total por maletas: ${totalMaletas:0.00}";
-            lblPrecioVuelo.Text = $"Total vuelo: ${totalVuelo:0.00}";
+            lblPrecioVuelo.Text = $"Total vuelo: ${totalPasajeros:0.00}";
             lnlPrecio.Text = $"Total: ${totalGeneral:0.00}";
         }
 
@@ -486,8 +485,9 @@ namespace ProyectoFinalTopicos
                             Nombre = formDatos.NombrePasajero,
                             Apellido = formDatos.ApellidoPasajero,
                             EsMenor = esMenor,
+                            Descuento = esMenor ? (precioVuelo * 0.30m) : 0m,
                             Asiento = numeroAsiento,
-                            PrecioBase = PRECIO_ASIENTO,
+                            PrecioBase = PRECIO_ASIENTO + precioVuelo,
                             PrecioMaletas = formDatos.TotalMaletas,
                             Telefono = formDatos.Telefono,
                             NumeroMaletas = formDatos.NumeroMaletas,
@@ -549,13 +549,19 @@ namespace ProyectoFinalTopicos
         /// <param name="e"></param>
         private void btnEliminarPasajero_Click(object sender, EventArgs e)
         {
-            if (pasajeroSeleccionado == null) return;
-
-            if (!pasajeroSeleccionado.EsMenor && pasajeros.Any(p => p.EsMenor) && pasajeros.Count == 2)
+            if (!pasajeroSeleccionado.EsMenor)
             {
-                MessageBox.Show("No puedes eliminar al adulto si hay un menor en la lista. Un menor no puede viajar solo.",
-                                "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                // Contar cuántos adultos hay actualmente (incluyendo el que se va a eliminar)
+                int adultosActuales = pasajeros.Count(p => !p.EsMenor);
+                int menoresActuales = pasajeros.Count(p => p.EsMenor);
+
+                // Si al eliminar el adulto, no quedaría ningún adulto con menores presentes
+                if (adultosActuales <= 1 && menoresActuales > 0)
+                {
+                    MessageBox.Show("No se puede eliminar al único adulto si hay pasajeros menores.",
+                                    "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
             }
 
             var confirmacion = MessageBox.Show(
@@ -697,6 +703,8 @@ namespace ProyectoFinalTopicos
             PrintDocument pd = new PrintDocument();
             pd.PrintPage += new PrintPageEventHandler(impresor.Imprimir);
 
+            
+
             PrintDialog dialogo = new PrintDialog
             {
                 Document = pd,
@@ -706,6 +714,11 @@ namespace ProyectoFinalTopicos
             if (dialogo.ShowDialog() == DialogResult.OK)
             {
                 pd.Print();
+
+                this.Hide();
+                frmEscoger frm = new frmEscoger();
+                frm.ShowDialog();
+                this.Close();
             }
         }
 

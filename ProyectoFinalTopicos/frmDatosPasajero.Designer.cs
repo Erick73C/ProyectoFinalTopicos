@@ -32,6 +32,7 @@
             this.cbxDestino = new System.Windows.Forms.ComboBox();
             this.cbxOrigen = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblMenor = new System.Windows.Forms.Label();
             this.lblNombrePasagero = new System.Windows.Forms.Label();
             this.lblAsiento = new System.Windows.Forms.Label();
             this.lblCostoMaletas = new System.Windows.Forms.Label();
@@ -54,7 +55,6 @@
             this.errNueroTelefono = new System.Windows.Forms.ErrorProvider(this.components);
             this.errApellidos = new System.Windows.Forms.ErrorProvider(this.components);
             this.errNombre = new System.Windows.Forms.ErrorProvider(this.components);
-            this.lblMenor = new System.Windows.Forms.Label();
             this.lblDescuentoMenor = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericNumeroMaletas)).BeginInit();
@@ -109,13 +109,24 @@
             this.panel1.Size = new System.Drawing.Size(765, 369);
             this.panel1.TabIndex = 2;
             // 
+            // lblMenor
+            // 
+            this.lblMenor.AutoSize = true;
+            this.lblMenor.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMenor.Location = new System.Drawing.Point(678, 13);
+            this.lblMenor.Name = "lblMenor";
+            this.lblMenor.Size = new System.Drawing.Size(105, 29);
+            this.lblMenor.TabIndex = 19;
+            this.lblMenor.Text = "(Menor)";
+            this.lblMenor.Visible = false;
+            // 
             // lblNombrePasagero
             // 
             this.lblNombrePasagero.AutoSize = true;
             this.lblNombrePasagero.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNombrePasagero.Location = new System.Drawing.Point(496, 13);
+            this.lblNombrePasagero.Location = new System.Drawing.Point(483, 13);
             this.lblNombrePasagero.Name = "lblNombrePasagero";
-            this.lblNombrePasagero.Size = new System.Drawing.Size(179, 24);
+            this.lblNombrePasagero.Size = new System.Drawing.Size(226, 29);
             this.lblNombrePasagero.TabIndex = 18;
             this.lblNombrePasagero.Text = "Nombre Pasagero";
             // 
@@ -123,9 +134,9 @@
             // 
             this.lblAsiento.AutoSize = true;
             this.lblAsiento.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAsiento.Location = new System.Drawing.Point(288, 13);
+            this.lblAsiento.Location = new System.Drawing.Point(347, 13);
             this.lblAsiento.Name = "lblAsiento";
-            this.lblAsiento.Size = new System.Drawing.Size(188, 24);
+            this.lblAsiento.Size = new System.Drawing.Size(235, 29);
             this.lblAsiento.TabIndex = 17;
             this.lblAsiento.Text = "Numero de asiento";
             // 
@@ -133,9 +144,9 @@
             // 
             this.lblCostoMaletas.AutoSize = true;
             this.lblCostoMaletas.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCostoMaletas.Location = new System.Drawing.Point(509, 323);
+            this.lblCostoMaletas.Location = new System.Drawing.Point(506, 319);
             this.lblCostoMaletas.Name = "lblCostoMaletas";
-            this.lblCostoMaletas.Size = new System.Drawing.Size(72, 20);
+            this.lblCostoMaletas.Size = new System.Drawing.Size(89, 25);
             this.lblCostoMaletas.TabIndex = 15;
             this.lblCostoMaletas.Text = "_______";
             this.lblCostoMaletas.Click += new System.EventHandler(this.lblCostoMaletas_Click);
@@ -144,15 +155,15 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(509, 191);
+            this.label8.Location = new System.Drawing.Point(506, 195);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(200, 24);
+            this.label8.Size = new System.Drawing.Size(256, 29);
             this.label8.TabIndex = 14;
             this.label8.Text = "Numero de Pasaporte ";
             // 
             // txtnoPasaporte
             // 
-            this.txtnoPasaporte.Location = new System.Drawing.Point(517, 218);
+            this.txtnoPasaporte.Location = new System.Drawing.Point(539, 227);
             this.txtnoPasaporte.Name = "txtnoPasaporte";
             this.txtnoPasaporte.Size = new System.Drawing.Size(192, 20);
             this.txtnoPasaporte.TabIndex = 13;
@@ -164,7 +175,7 @@
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(556, 67);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(80, 24);
+            this.label7.Size = new System.Drawing.Size(102, 29);
             this.label7.TabIndex = 12;
             this.label7.Text = "Destino";
             // 
@@ -174,7 +185,7 @@
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(189, 67);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(74, 24);
+            this.label6.Size = new System.Drawing.Size(93, 29);
             this.label6.TabIndex = 11;
             this.label6.Text = "Origen";
             // 
@@ -184,7 +195,7 @@
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(3, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(295, 39);
+            this.label5.Size = new System.Drawing.Size(373, 52);
             this.label5.TabIndex = 10;
             this.label5.Text = "Datos del usuario ";
             // 
@@ -202,14 +213,14 @@
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(23, 316);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(177, 27);
+            this.label4.Size = new System.Drawing.Size(221, 33);
             this.label4.TabIndex = 8;
             this.label4.Text = "Numero de maletas";
             this.label4.UseCompatibleTextRendering = true;
             // 
             // txtNumeroTelefono
             // 
-            this.txtNumeroTelefono.Location = new System.Drawing.Point(218, 265);
+            this.txtNumeroTelefono.Location = new System.Drawing.Point(246, 274);
             this.txtNumeroTelefono.Name = "txtNumeroTelefono";
             this.txtNumeroTelefono.Size = new System.Drawing.Size(192, 20);
             this.txtNumeroTelefono.TabIndex = 7;
@@ -221,7 +232,7 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(22, 265);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(178, 24);
+            this.label3.Size = new System.Drawing.Size(227, 29);
             this.label3.TabIndex = 6;
             this.label3.Text = "Numero de telefono";
             // 
@@ -239,7 +250,7 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(112, 218);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(88, 24);
+            this.label2.Size = new System.Drawing.Size(114, 29);
             this.label2.TabIndex = 4;
             this.label2.Text = "Apellidos";
             // 
@@ -249,7 +260,7 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(111, 164);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(89, 24);
+            this.label1.Size = new System.Drawing.Size(113, 29);
             this.label1.TabIndex = 3;
             this.label1.Text = "Nombre: ";
             // 
@@ -299,17 +310,6 @@
             // 
             this.errNombre.ContainerControl = this;
             // 
-            // lblMenor
-            // 
-            this.lblMenor.AutoSize = true;
-            this.lblMenor.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMenor.Location = new System.Drawing.Point(678, 13);
-            this.lblMenor.Name = "lblMenor";
-            this.lblMenor.Size = new System.Drawing.Size(84, 24);
-            this.lblMenor.TabIndex = 19;
-            this.lblMenor.Text = "(Menor)";
-            this.lblMenor.Visible = false;
-            // 
             // lblDescuentoMenor
             // 
             this.lblDescuentoMenor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -317,7 +317,7 @@
             this.lblDescuentoMenor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDescuentoMenor.Location = new System.Drawing.Point(29, 427);
             this.lblDescuentoMenor.Name = "lblDescuentoMenor";
-            this.lblDescuentoMenor.Size = new System.Drawing.Size(72, 20);
+            this.lblDescuentoMenor.Size = new System.Drawing.Size(89, 25);
             this.lblDescuentoMenor.TabIndex = 20;
             this.lblDescuentoMenor.Text = "_______";
             this.lblDescuentoMenor.Visible = false;

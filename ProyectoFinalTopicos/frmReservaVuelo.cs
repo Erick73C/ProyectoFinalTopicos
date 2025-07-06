@@ -135,6 +135,7 @@ namespace ReservaVuelo
 
             var frmVenta = new frmVentaDeVoletos(totalPasajeros, (int)nudMenores.Value, destino);
             frmVenta.ShowDialog();
+            this.Close(); 
         }
 
         #endregion
