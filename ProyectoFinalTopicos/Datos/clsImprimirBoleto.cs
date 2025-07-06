@@ -83,21 +83,21 @@ namespace ProyectoFinalTopicos.Datos
             g.DrawString(boleto.NumeroBoleto, fuenteNormal, negro, x + 500, y); y += 30;
 
             g.DrawString("PRECIO VUELO:", fuenteCampo, negro, x + 10, y);
-            g.DrawString($"${boleto.Vuelo.PrecioBase:0.00}", fuenteNormal, negro, x + 150, y); y += 25;
+            g.DrawString($"${boleto.Vuelo.PrecioBase}", fuenteNormal, negro, x + 150, y); y += 25;
 
             decimal total = boleto.Pasajero.PrecioBase + boleto.Pasajero.PrecioMaletas + boleto.Vuelo.PrecioBase - boleto.Pasajero.Descuento;
 
             g.DrawString("TOTAL PAGADO:", fuenteCampo, negro, x + 10, y);
             g.DrawString($"${total:0.00}", fuenteNormal, negro, x + 150, y); y += 25;
 
-            g.DrawString($"(Asiento: ${boleto.Pasajero.PrecioBase:0.00} + Maletas: ${boleto.Pasajero.PrecioMaletas:0.00})", fuenteNormal, negro, x + 10, y);
+            g.DrawString($"(Asiento: ${boleto.Pasajero.PrecioBase} + Maletas: ${boleto.Pasajero.PrecioMaletas:0.00})", fuenteNormal, negro, x + 10, y);
             if (boleto.Pasajero.Descuento > 0)
             {
                 y += 25;
                 g.DrawString($"Descuento menor aplicado: -${boleto.Pasajero.Descuento:0.00}", new Font("Arial", 10, FontStyle.Bold), Brushes.DarkGreen, x + 10, y);
             }
 
-            g.DrawString("Nota: Debe estar en la puerta de abordaje antes de las 20:05", new Font("Arial", 10, FontStyle.Italic), negro, x + 10, y + 40);
+            g.DrawString("Nota: Debe estar en la puerta de abordaje una hora antes del vuelo ", new Font("Arial", 10, FontStyle.Italic), negro, x + 10, y + 40);
 
             indiceActual++;
             e.HasMorePages = indiceActual < boletos.Count;

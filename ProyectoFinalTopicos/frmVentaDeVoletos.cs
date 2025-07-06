@@ -69,7 +69,7 @@ namespace ProyectoFinalTopicos
             numAsientos.Value = 1;
 
             // Recuperar los asientos ocupados desde la base de datos
-            asientosOcupados = dao.ObtenerAsientosOcupados("V123");
+            asientosOcupados = dao.ObtenerTodosLosAsientosOcupados();
 
             // Configurar el estilo por defecto para las celdas de botón
             grdAsientos.DefaultCellStyle = new DataGridViewCellStyle
@@ -128,6 +128,9 @@ namespace ProyectoFinalTopicos
         /// <param name="e"></param>
         private void ReasignarAsiento(DataGridViewCellEventArgs e)
         {
+            // ACTUALIZAR lista de asientos ocupados desde la base de datos
+            asientosOcupados = dao.ObtenerTodosLosAsientosOcupados();
+
             if (e.ColumnIndex == 3 || e.RowIndex < 0 || e.ColumnIndex < 0)
             {
                 modoReasignacion = false;
@@ -137,13 +140,19 @@ namespace ProyectoFinalTopicos
             DataGridViewCell celda = grdAsientos[e.ColumnIndex, e.RowIndex];
             if (celda.Value == null) return;
 
-            string nuevoAsiento = celda.Value.ToString();
+            string nuevoAsiento = celda.Value.ToString().Trim();
 
             // Validar que el nuevo asiento no esté ocupado
+            if (nuevoAsiento == "X")
+            {
+                MessageBox.Show("Este asiento ya está ocupado.", "Asiento ocupado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (asientosOcupados.Contains(nuevoAsiento) && nuevoAsiento != pasajeroReasignando.Asiento)
             {
-                MessageBox.Show($"El asiento {nuevoAsiento} ya está ocupado",
-                              "Asiento ocupado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"El asiento {nuevoAsiento} ya está ocupado.",
+                                "Asiento ocupado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -226,8 +235,8 @@ namespace ProyectoFinalTopicos
         /// </summary>
         private void ActualizarContadorPasajeros()
         {
-            lblContadorPasageros.Text = $"{pasajeros.Count}/{MAX_PASAJEROS} pasajeros";
-            lblContadorPasageros.ForeColor = pasajeros.Count >= MAX_PASAJEROS ? Color.Red : Color.Black;
+            lblContadorPasageros.Text = $"{pasajeros.Count}/{pasajeros.Count} pasajeros";
+            //lblContadorPasageros.ForeColor = pasajeros.Count >= MAX_PASAJEROS ? Color.Red : Color.Black;
             lstPasajeros.Refresh();
         }
 
@@ -441,10 +450,13 @@ namespace ProyectoFinalTopicos
             string numeroAsiento = celda.Value.ToString();
 
             // Verificar si el asiento está ocupado
-            if (celda.Style.BackColor == Color.FromArgb(60, 179, 113) ||
-                asientosOcupados.Contains(numeroAsiento))
+            asientosOcupados = dao.ObtenerTodosLosAsientosOcupados();
+
+            // Verificar si el asiento está ocupado realmente (base de datos o visualmente)
+            if (asientosOcupados.Contains(numeroAsiento) ||
+                celda.Style.BackColor == Color.Red)
             {
-                MessageBox.Show($"El asiento {numeroAsiento} ya está ocupado",
+                MessageBox.Show($"El asiento ya está ocupado elige otro",
                               "Asiento ocupado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -509,6 +521,8 @@ namespace ProyectoFinalTopicos
 
                         DibujarMapaAsientos();
                         ActualizarTotal();
+                        ActualizarContadorPasajeros();
+
 
                         // Habilitar botón de ticket si se completaron todos los asientos
                         btntiket.Enabled = (asientosSeleccionados == asientosASeleccionar);
@@ -609,30 +623,25 @@ namespace ProyectoFinalTopicos
 
             if (cantidad > 0)
             {
-                if (pasajeros.Count == 0)
-                {
-                    MessageBox.Show("Debes seleccionar primero los pasajeros antes de guardar los datos.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+                asientosOcupados = dao.ObtenerTodosLosAsientosOcupados();
 
                 bool errores = false;
-
                 boletosGuardados.Clear();
 
                 foreach (var pasajero in pasajeros)
                 {
                     try
                     {
-                        Vuelo vuelo = new Vuelo
-                        {
-                            NumeroVuelo = "V123",
-                            AeropuertoOrigen = pasajero.Origen,
-                            AeropuertoDestino = pasajero.Destino,
-                            FechaHoraSalida = DateTime.Now.AddHours(2),
-                            FechaHoraLlegada = DateTime.Now.AddHours(6)
-                        };
+                        // Obtener datos del vuelo real desde la base de datos por destino
+                        Vuelo vuelo = dao.ObtenerDatosVueloPorDestino(pasajero.Destino);
 
-                        dao.InsertarVueloSiNoExiste(vuelo);
+                        if (vuelo == null)
+                        {
+                            MessageBox.Show($"No se encontró información del vuelo para el destino '{pasajero.Destino}'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            continue; // Salta este pasajero
+                        }
+
+                        dao.InsertarVueloSiNoExiste(vuelo); // Esto es opcional si ya se insertó antes
                         dao.InsertarPasajero(pasajero, out int idPasajero);
 
                         string identificadorUnico = Guid.NewGuid().ToString("N").Substring(0, 13);
@@ -647,6 +656,7 @@ namespace ProyectoFinalTopicos
                             Pasajero = pasajero,
                             Vuelo = vuelo
                         };
+
                         boletosGuardados.Add(boleto);
                         dao.InsertarBoleto(boleto, idPasajero);
                     }
@@ -665,13 +675,21 @@ namespace ProyectoFinalTopicos
                     asientosSeleccionados = 0;
                     asientosASeleccionar = 0;
                     numAsientos.Value = 1;
-                    //btntiket.Enabled = false;
                     btntiket.Enabled = boletosGuardados.Count > 0;
                     lnlPrecio.Text = "Total: $0.00";
+                    lblPrecioVuelo.Text = "$0.00";
                     lblCostoMaleta.Text = "Total por maletas: $0.00";
                     lblInstruccion.Text = "Ingrese cantidad de asientos";
 
-                    asientosOcupados = dao.ObtenerAsientosOcupados("V123");
+                    lblContadorPasageros.Text = $"{pasajeros.Count}";
+
+
+                    if (boletosGuardados.Count > 0)
+                    {
+                        string numeroVuelo = boletosGuardados[0].Vuelo.NumeroVuelo;
+                        asientosOcupados = dao.ObtenerAsientosOcupados(numeroVuelo);
+                    }
+
                     DibujarMapaAsientos();
                     lstPasajeros.DataSource = null;
                     lstPasajeros.DataSource = pasajeros;
@@ -684,6 +702,7 @@ namespace ProyectoFinalTopicos
             {
                 MessageBox.Show("Ingrese un número válido de asientos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        
         }
 
         /// <summary>
@@ -715,14 +734,22 @@ namespace ProyectoFinalTopicos
             {
                 pd.Print();
 
-                this.Hide();
-                frmEscoger frm = new frmEscoger();
-                frm.ShowDialog();
-                this.Close();
+                // Cerrar TODAS las ventanas excepto frmEscoger
+                foreach (Form frm in Application.OpenForms.Cast<Form>().ToList())
+                {
+                    if (!(frm is frmEscoger))
+                    {
+                        frm.Close();
+                    }
+                }
             }
         }
 
         #endregion
 
+        private void lblContadorPasageros_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

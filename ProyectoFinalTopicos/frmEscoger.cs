@@ -75,5 +75,9 @@ namespace ProyectoFinalTopicos
 
         #endregion
 
+        private void frmEscoger_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

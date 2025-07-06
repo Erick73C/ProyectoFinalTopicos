@@ -55,6 +55,8 @@ namespace ProyectoFinalTopicos
             lblCostoMaletas.Text = $"Costo total maletas: $0.00";
 
             CargarDestinos();
+
+            //Obtner el destinp seleccionado en frmReservavuelos
             cbxDestino.SelectedItem = destinoSeleccionado;
 
             cbxOrigen.Enabled = false;
@@ -105,12 +107,23 @@ namespace ProyectoFinalTopicos
         /// </summary>
         private void CargarDestinos()
         {
-            cbxOrigen.Items.AddRange(destinosDisponibles.ToArray());
-            cbxDestino.Items.AddRange(destinosDisponibles.ToArray());
+            var destinos = new List<string>
+            {
+                "Cancún (CUN)",
+                "Los Cabos (SJD)",
+                "Puerto Vallarta (PVR)",
+                "Hermosillo (HMO)",
+                "Bogotá (BOG)",
+                "Washington (DCA)",
+                "Nueva York (JFK)",
+                "San Francisco (SFO)"
+            };
 
-            // Establecer valores por defecto
+            cbxOrigen.Items.AddRange(destinos.ToArray());
+            cbxDestino.Items.AddRange(destinos.ToArray());
+
             cbxOrigen.SelectedIndex = 0;
-            cbxDestino.SelectedIndex = 1;
+
         }
 
         /// <summary>
@@ -232,11 +245,19 @@ namespace ProyectoFinalTopicos
         /// </summary>
         private void validarNombre()
         {
+            string patronNombre = @"^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ'\s]+$";
+
             if (string.IsNullOrEmpty(txtNombrePasagero.Text) == true)
             {
                 txtNombrePasagero.Focus();
                 txtNombrePasagero.BackColor = Color.IndianRed;
                 errNombre.SetError(txtNombrePasagero, "Debe escribir el nombre");
+            }
+            else if (!Regex.IsMatch(txtNombrePasagero.Text, patronNombre))
+            {
+                txtNombrePasagero.Focus();
+                txtNombrePasagero.BackColor = Color.IndianRed;
+                errNombre.SetError(txtNombrePasagero, "El nombre no puede contener números ni caracteres especiales");
             }
             else if (txtNombrePasagero.Text.Length >= 30)
             {
@@ -257,11 +278,19 @@ namespace ProyectoFinalTopicos
         /// </summary>
         private void validarApellidos()
         {
+            string patronApellidos = @"^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ'\s]+$";
+
             if (string.IsNullOrEmpty(txtApellidoPasageri.Text) == true && txtApellidoPasageri.Text == "")
             {
                 txtApellidoPasageri.Focus();
                 txtApellidoPasageri.BackColor = Color.IndianRed;
                 errApellidos.SetError(txtApellidoPasageri, "Debe escribir el correo");
+            }
+            else if (!Regex.IsMatch(txtApellidoPasageri.Text, patronApellidos))
+            {
+                txtApellidoPasageri.Focus();
+                txtApellidoPasageri.BackColor = Color.IndianRed;
+                errApellidos.SetError(txtApellidoPasageri, "El apellido no puede contener números ni caracteres especiales");
             }
             else if (txtNombrePasagero.Text == txtApellidoPasageri.Text)
             {
@@ -351,11 +380,15 @@ namespace ProyectoFinalTopicos
             validarPasaporte();
         }
 
-        #endregion
 
         #endregion
 
+        #endregion
 
+        private void cbxDestino_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 
 
