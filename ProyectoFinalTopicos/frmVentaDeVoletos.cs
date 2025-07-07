@@ -69,7 +69,8 @@ namespace ProyectoFinalTopicos
             numAsientos.Value = 1;
 
             // Recuperar los asientos ocupados desde la base de datos
-            asientosOcupados = dao.ObtenerTodosLosAsientosOcupados();
+            string numeroVuelo = lblNombreVuelo.Text.Trim();
+            asientosOcupados = dao.ObtenerAsientosOcupados(numeroVuelo);
 
             // Configurar el estilo por defecto para las celdas de botón
             grdAsientos.DefaultCellStyle = new DataGridViewCellStyle
@@ -101,9 +102,11 @@ namespace ProyectoFinalTopicos
             numAsientos.Enabled = false;
             lblContadorPasageros.Text = $"0/{totalPasajerosEsperados}";
 
-            
             string numeroVuelo = dao.ObtenerNumeroVueloPorDestino(destinoSeleccionado);
             lblNombreVuelo.Text = numeroVuelo;
+
+            asientosOcupados = dao.ObtenerAsientosOcupados(lblNombreVuelo.Text.Trim());
+            DibujarMapaAsientos();
         }
 
         /// <summary>
@@ -129,7 +132,8 @@ namespace ProyectoFinalTopicos
         private void ReasignarAsiento(DataGridViewCellEventArgs e)
         {
             // ACTUALIZAR lista de asientos ocupados desde la base de datos
-            asientosOcupados = dao.ObtenerTodosLosAsientosOcupados();
+            string numeroVuelo = lblNombreVuelo.Text.Trim();
+            asientosOcupados = dao.ObtenerAsientosOcupados(numeroVuelo);
 
             if (e.ColumnIndex == 3 || e.RowIndex < 0 || e.ColumnIndex < 0)
             {
@@ -427,20 +431,20 @@ namespace ProyectoFinalTopicos
                 return;
             }
 
-            if (asientosSeleccionados >= asientosASeleccionar)
+            if (pasajeros.Count >= totalPasajerosEsperados)
             {
-                MessageBox.Show("Ya ha seleccionado todos los asientos requeridos",
-                              "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Ya ha seleccionado todos los asientos requeridos.",
+                                "Límite alcanzado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-
+            /*
             if (pasajeros.Count >= asientosASeleccionar)
             {
                 MessageBox.Show($"Ya ha seleccionado los {asientosASeleccionar} asientos requeridos",
                               "Límite alcanzado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-
+            */
             // Obtener celda seleccionada
             DataGridViewCell celda = grdAsientos[e.ColumnIndex, e.RowIndex];
 
@@ -450,7 +454,8 @@ namespace ProyectoFinalTopicos
             string numeroAsiento = celda.Value.ToString();
 
             // Verificar si el asiento está ocupado
-            asientosOcupados = dao.ObtenerTodosLosAsientosOcupados();
+            string numeroVuelo = lblNombreVuelo.Text.Trim();
+            asientosOcupados = dao.ObtenerAsientosOcupados(numeroVuelo);
 
             // Verificar si el asiento está ocupado realmente (base de datos o visualmente)
             if (asientosOcupados.Contains(numeroAsiento) ||
@@ -623,7 +628,8 @@ namespace ProyectoFinalTopicos
 
             if (cantidad > 0)
             {
-                asientosOcupados = dao.ObtenerTodosLosAsientosOcupados();
+                string numeroVuelo = lblNombreVuelo.Text.Trim();
+                asientosOcupados = dao.ObtenerAsientosOcupados(numeroVuelo);
 
                 bool errores = false;
                 boletosGuardados.Clear();
@@ -686,8 +692,13 @@ namespace ProyectoFinalTopicos
 
                     if (boletosGuardados.Count > 0)
                     {
-                        string numeroVuelo = boletosGuardados[0].Vuelo.NumeroVuelo;
-                        asientosOcupados = dao.ObtenerAsientosOcupados(numeroVuelo);
+                        string numeroVueloGuardado = boletosGuardados[0].Vuelo.NumeroVuelo;
+                        asientosOcupados = dao.ObtenerAsientosOcupados(numeroVueloGuardado);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se guardaron boletos. Verifica que todos los pasajeros tengan información válida.",
+                                        "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
 
                     DibujarMapaAsientos();
