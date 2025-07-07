@@ -428,5 +428,46 @@ namespace ProyectoFinalTopicos.Datos
             }
         }
 
+
+        /// <summary>
+        /// Obtiene todos los asientos ocupados, sin importar el vuelo.
+        /// </summary>
+        /// <returns>Lista de números de asiento ocupados.</returns>
+        public List<string> ObtenerTodosLosAsientosOcupados()
+        {
+            List<string> asientos = new List<string>();
+            MySqlConnection conn = null;
+            MySqlCommand cmd = null;
+            MySqlDataReader reader = null;
+
+            try
+            {
+                conn = new MySqlConnection(conexion);
+                conn.Open();
+                string query = "SELECT NumeroAsiento FROM Boletos WHERE NumeroAsiento IS NOT NULL";
+
+                cmd = new MySqlCommand(query, conn);
+                reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    asientos.Add(reader["NumeroAsiento"].ToString());
+                }
+
+                return asientos;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al obtener todos los asientos ocupados.", ex);
+            }
+            finally
+            {
+                reader?.Close();
+                cmd?.Dispose();
+                conn?.Close();
+                conn?.Dispose();
+            }
+        }
+
     }
 }
